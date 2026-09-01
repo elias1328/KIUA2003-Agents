@@ -1,0 +1,10 @@
+theme,ground_truth,max_turns,turns_used,det_temp,susp_temp,detective_verdict,suspect_confessed,detective_exonerated,judge_grade,classification,evidence_unlocked,total_evidence,total_tokens,elapsed_seconds,stop_reason
+Pedigree Ploy: A Champion's Desperate Deed,GUILTY,4,4,0.3,0.4,GUILTY_ARREST,False,False,F,FN,1,4,5545,170.86,max_turns
+Luxury Submarine Expedition Poisoning (Pacific Trench),GUILTY,6,6,0.3,0.4,GUILTY_ARREST,False,False,F,FN,2,4,10276,249.83,max_turns
+Formula 1 Racing Telemetry Theft (Monaco Paddock),INNOCENT,8,8,0.3,0.4,GUILTY_ARREST,False,True,F,TN,2,4,17137,433.4,goal_reached
+"University of Hamar Exam & Research Fraud Mystery (Hamar, Norway)",INNOCENT,10,8,0.3,0.4,GUILTY_ARREST,False,False,A,FP,2,4,12884,330.64,max_tokens
+Deep Space Station Sabotage (Mars Orbital Station),INNOCENT,12,10,0.3,0.4,INNOCENT_EXONERATE,False,False,A,TN,4,4,14223,294.85,max_tokens
+The Oslo Opera House Heist,INNOCENT,4,4,0.3,0.4,INNOCENT_EXONERATE,False,False,A,TN,0,2,3806,118.25,max_turns
+Deep Space Station Sabotage (Mars Orbital Station),GUILTY,6,6,0.3,0.4,GUILTY_ARREST,False,False,F,FN,2,3,9846,262.06,max_turns
+Arctic Biosphere Sample Tampering (Svalbard Research Station),INNOCENT,8,8,0.3,0.4,INNOCENT_EXONERATE,False,False,A,TN,0,4,9381,199.63,max_turns
+"University of Hamar Exam & Research Fraud Mystery (Hamar, Norway)",GUILTY,10,8,0.3,0.4,GUILTY_ARREST,False,False,A,TP,3,4,13455,354.55,max_tokens

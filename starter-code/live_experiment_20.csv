@@ -1,0 +1,10 @@
+theme,ground_truth,max_turns,turns_used,det_temp,susp_temp,detective_verdict,suspect_confessed,detective_exonerated,judge_grade,classification,evidence_unlocked,total_evidence,total_tokens,elapsed_seconds,stop_reason
+Framed Kennel Owner,INNOCENT,4,4,0.3,0.4,INNOCENT_EXONERATE,False,False,A,TN,0,4,5267,167.39,max_turns
+Framed Witness: Champion Pedigree Show Dog Kidnapping,INNOCENT,6,6,0.3,0.4,GUILTY_ARREST,False,False,F,FP,2,4,9992,231.33,max_turns
+Neo-Tokyo Megacorp Cybersecurity Breach,GUILTY,8,8,0.3,0.4,GUILTY_ARREST,False,False,C,FN,3,4,11130,231.63,max_turns
+The Shadow in the Norwegian Woods,INNOCENT,10,8,0.3,0.4,GUILTY_ARREST,False,False,F,FP,2,4,12479,261.66,max_tokens
+The Ghost in the System,INNOCENT,12,8,0.3,0.4,GUILTY_ARREST,False,False,F,FP,3,4,12999,304.11,max_tokens
+The Shadow in the Code,INNOCENT,4,4,0.3,0.4,INNOCENT_EXONERATE,False,False,A,TN,0,4,3861,127.45,max_turns
+The Dark Norwegian Woods,INNOCENT,6,6,0.3,0.4,INNOCENT_EXONERATE,False,False,A,TN,1,4,7061,182.65,max_turns
+Paws of Deceit,GUILTY,8,6,0.3,0.4,GUILTY_ARREST,False,False,A,TP,2,3,10808,323.73,max_seconds
+Luxury Submarine Expedition Poisoning (Pacific Trench),INNOCENT,10,8,0.3,0.4,INNOCENT_EXONERATE,False,False,A,TN,0,4,13388,363.92,max_tokens
