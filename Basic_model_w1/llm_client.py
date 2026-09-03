@@ -1,6 +1,17 @@
-"""llm_client.py: Minimal client wrapper for Ollama and offline Mock."""
+"""Thin wrapper over a chat model. You don't need to change this file.
+
+Two clients, same interface:
+  OllamaClient  -- talks to a local model via Ollama's /api/chat
+  MockClient    -- canned replies, instant and free (use for development)
+
+Usage:
+    client = make_client(mock=True)   # or mock=False for the real model
+    reply = client.chat("llama3.2:3b", messages, temperature=0.7)
+    print(reply.text, reply.tokens, reply.seconds)
+"""
 import time
 from dataclasses import dataclass
+
 import requests
 
 
@@ -17,7 +28,7 @@ class ChatResponse:
 
 
 class OllamaClient:
-    """Calls a local model served by Ollama."""
+    """Calls a local model served by Ollama (https://ollama.com)."""
 
     def __init__(self, host="http://localhost:11434"):
         self.host = host
@@ -37,30 +48,40 @@ class OllamaClient:
             )
         except requests.ConnectionError:
             raise RuntimeError(
-                f"Cannot connect to Ollama at {self.host}. Start it with: ollama serve"
+                f"Cannot connect to Ollama at {self.host}.\n"
+                f"Is Ollama running? Start it with: ollama serve\n"
+                f"Or run with --mock to develop without a model."
             ) from None
         if resp.status_code == 404:
-            raise RuntimeError(f"Model '{model}' not found. Pull it first: ollama pull {model}")
+            raise RuntimeError(
+                f"Model '{model}' not found.\n"
+                f"Pull it first: ollama pull {model}\n"
+                f"Or run with --mock to develop without a model."
+            )
         resp.raise_for_status()
         data = resp.json()
         return ChatResponse(
             text=data["message"]["content"].strip(),
-            prompt_tokens=data.get("prompt_eval_count", 0),
+            prompt_tokens=data.get("prompt_eval_count", 0),   # exact, from Ollama
             completion_tokens=data.get("eval_count", 0),
             seconds=time.monotonic() - t0,
         )
 
 
 class MockClient:
-    """Offline test client cycling canned responses for quick, free debugging."""
+    """Free, instant, offline. Cycles through canned replies.
+
+    Token counts are approximated by word count, good enough to exercise your
+    Budget logic while you debug the loop. Swap to OllamaClient for real runs.
+    """
 
     DEFAULT_REPLIES = [
-        "Where were you last night at 21:30 when the gallery vault was breached?",
-        "I was having dinner alone across town at the Grand Bistro between 21:00 and 22:30.",
-        "Our records show the Grand Bistro was closed all night due to emergency plumbing repairs.",
-        "I... must have mixed up the name of the restaurant, detective.",
-        "You swiped your master keycard at the vault at 21:28. How do you explain that?",
-        "Alright, you caught me. I took the diamond because of my debts.",
+        "I think we should weigh the costs before anything else.",
+        "Fair, but the long-term benefits clearly outweigh those costs.",
+        "Only if we ignore the people who can't adapt quickly.",
+        "We can support them with a transition plan; that's solvable.",
+        "Then let's agree the plan matters as much as the decision.",
+        "Agreed. I think that's our common ground.",
     ]
 
     def __init__(self, replies=None):

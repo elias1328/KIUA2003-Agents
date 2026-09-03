@@ -1,9 +1,22 @@
-"""budget.py: Guardrail that stops two agents looping forever."""
+"""budget.py: the guardrail that stops two agents looping forever.
+
+This file is COMPLETE. You do not need to change it. Use it everywhere you
+run a model in a loop. See ../cost-and-safety.md for why all three limits matter.
+"""
 import time
 
 
 class Budget:
-    """Enforces three independent stop conditions: max_turns, max_tokens, max_seconds."""
+    """Enforces three independent stop conditions plus an optional goal stop.
+
+    Usage:
+        b = Budget(max_turns=12, max_tokens=4000, max_seconds=120)
+        while not b.exhausted():
+            reply = ...                 # call the model
+            b.record(turns=1, tokens=reply.tokens)
+            if goal_met: b.stop("goal_reached")
+        print(b.stop_reason)            # which limit fired
+    """
 
     def __init__(self, max_turns=10, max_tokens=4000, max_seconds=120):
         self.max_turns = max_turns
@@ -23,14 +36,17 @@ class Budget:
         return 0.0 if self._start is None else time.monotonic() - self._start
 
     def record(self, turns=0, tokens=0):
+        """Call once per completed turn with that turn's cost."""
         self.turns += turns
         self.tokens += tokens
 
     def stop(self, reason):
+        """Force a stop for a domain reason (e.g. 'goal_reached')."""
         if self.stop_reason is None:
             self.stop_reason = reason
 
     def exhausted(self):
+        """True when any limit is reached. Starts the clock on first call."""
         if self._start is None:
             self.start()
         if self.stop_reason is not None:
