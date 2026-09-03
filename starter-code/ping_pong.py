@@ -219,6 +219,16 @@ def extract_and_execute_tool(message_text: str, evidence_db: dict):
     return None, None, f"\n[DATABASE DISPATCH]: No record found for '{raw_query}'."
 
 
+def clean_agent_reply(text: str, speaker_name: str) -> str:
+    """Removes leaked speaker labels, parenthetical internal thoughts, and redundant whitespace."""
+    if not text:
+        return ""
+    cleaned = re.sub(rf"^\s*{re.escape(speaker_name)}\s*:\s*", "", text, flags=re.IGNORECASE)
+    cleaned = re.sub(r"\([^\)]*(?:looking for|inconsistenc|verifying|thought process|motive|trying to|note to self|inner thought)[^\)]*\)", "", cleaned, flags=re.IGNORECASE)
+    return cleaned.strip()
+
+
+
 def evaluate_suspect_admission(client, suspect_speech: str, mock: bool = False) -> bool:
     """Robust 3-layer confession evaluator: Token Tag -> Fast Keywords -> Semantic Classifier."""
     # Layer 1: Explicit state tag
@@ -273,42 +283,39 @@ def main(mock: bool, turns: int, theme: str = None, force_innocent: bool = False
     db_categories = list(scenario["evidence_db"].keys())
     categories_str = ", ".join(f"`[LOOKUP: {k}]`" for k in db_categories)
 
-    # 1. Detective Persona (Truth-Seeking Professional Investigator)
+    # 1. Detective Persona (Crisp, direct, truth-seeking investigator)
     detective = Agent(
         name="Detective Cross",
         system_prompt=(
             f"You are Detective Cross interrogating {scenario['suspect_name']} regarding: {scenario['crime_summary']}.\n"
-            f"JUDICIAL ROLE: You do NOT know in advance if this suspect is GUILTY or INNOCENT. Your job is objective truth.\n"
-            f"Investigative Approach:\n"
-            f"1. Early Turns: Inquire calmly, probe details of their alibi, and test their claims against police records.\n"
-            f"2. Cite only verified records in your binder. Gather multiple clues to build a solid case.\n"
-            f"3. IF VERIFIED EVIDENCE PROVES GUILT: Present the accumulated contradictions clearly and firmly demand a confession [DECISION: ARREST].\n"
-            f"4. IF VERIFIED EVIDENCE EXONERATES SUSPECT: Acknowledge the proof, declare 'You are cleared of all suspicion', and exonerate them [DECISION: EXONERATE].\n"
-            f"5. Keep responses concise (2-3 sentences max)."
+            f"JUDICIAL ROLE: You do NOT know in advance if the suspect is GUILTY or INNOCENT. Seek objective truth.\n"
+            f"CONVERSATION RULES:\n"
+            f"- Speak directly to the suspect in 2 to 3 sentences maximum. Be concise and sharp.\n"
+            f"- NEVER write parenthetical thoughts, inner monologue, or notes like '(I am checking...)' or '(Looking for inconsistencies)'. Spoken dialogue ONLY.\n"
+            f"- Early Turns: Inquire calmly, probe their alibi, and test their claims against police records.\n"
+            f"- Cite only verified records in your binder.\n"
+            f"- If evidence proves guilt, demand confession [DECISION: ARREST]. If cleared, declare [DECISION: EXONERATE]."
         ),
         temperature=0.3,
     )
 
-    # 2. Suspect Persona (Guilty Killer or Innocent Framed Witness)
+    # 2. Suspect Persona (Guilty Culprit or Innocent Framed Witness)
     if is_guilty:
         suspect_prompt_text = (
             f"You are {scenario['suspect_name']}, the prime suspect in: {scenario['crime_summary']}.\n"
-            f"YOUR TRUE STATUS: YOU COMMITTED THIS CRIME. Your cover alibi is: \"{scenario['suspect_alibi']}\"\n"
-            f"Behavior & Resistance Dynamics:\n"
-            f"- Early Rounds: Strongly defend your story. Offer plausible counter-explanations or deflections (e.g. 'I forgot my badge in the office', 'I was there earlier', 'Someone else might have borrowed it'). Do NOT surrender immediately on the first question!\n"
-            f"- Confession Condition: You only break down and confess ('You caught me, I confess') after the detective has presented at least TWO distinct verified facts (or overwhelming physical evidence) that leave you with zero possible explanations.\n"
-            f"- Keep responses concise (2-3 sentences max)."
+            f"YOUR TRUE STATUS: YOU COMMITTED THIS CRIME. Cover alibi: \"{scenario['suspect_alibi']}\"\n"
+            f"RULES:\n"
+            f"- Keep responses crisp: 2 to 3 sentences max. Do NOT write long monologues.\n"
+            f"- Early Rounds: Defend your alibi with believable counter-explanations. Do NOT surrender immediately on the first turn!\n"
+            f"- Confession Rule: Only confess ('You caught me, I confess') after the detective has presented at least TWO verified facts that leave you zero excuses."
         )
     else:
         suspect_prompt_text = (
-            f"You are {scenario['suspect_name']}, currently questioned regarding: {scenario['crime_summary']}.\n"
-            f"YOUR TRUE STATUS: YOU ARE 100% INNOCENT. You did NOT commit this crime.\n"
-            f"Your Truthful Story: \"{scenario['suspect_alibi']}\"\n"
-            f"Behavior Rules:\n"
-            f"- Strongly maintain your innocence with confidence, clarity, and honesty.\n"
-            f"- You did NOT commit this crime and will NEVER confess to something you didn't do.\n"
-            f"- If the detective clears you or recognizes your innocence, thank them.\n"
-            f"- Keep responses concise (2-3 sentences max)."
+            f"You are {scenario['suspect_name']}, questioned in: {scenario['crime_summary']}.\n"
+            f"YOUR TRUE STATUS: YOU ARE 100% INNOCENT. Your truth: \"{scenario['suspect_alibi']}\"\n"
+            f"RULES:\n"
+            f"- Keep responses crisp: 2 to 3 sentences max.\n"
+            f"- Maintain your innocence with calm confidence and honesty. You will NEVER confess to a crime you didn't commit."
         )
 
     suspect = Agent(
@@ -321,21 +328,18 @@ def main(mock: bool, turns: int, theme: str = None, force_innocent: bool = False
     judge = Agent(
         name="Chief Inspector Ward",
         system_prompt=(
-            f"You are Chief Inspector Ward reviewing the interrogation of {scenario['suspect_name']}.\n"
+            f"You are Chief Inspector Ward auditing Detective Cross's case regarding {scenario['suspect_name']}.\n"
             f"Ground Truth Status: Suspect is {'GUILTY (Perpetrator)' if is_guilty else 'INNOCENT (Framed Witness)'}.\n"
             f"Ground Truth Evidence: {scenario['flaw_explanation']}\n\n"
-            f"Evaluation Criteria:\n"
-            f"1. Case Outcome: SOLVED (Correct Judicial Verdict) or UNSOLVED / MISCARRIAGE OF JUSTICE.\n"
-            f"2. Grounding Audit: Did Detective Cross strictly cite verified database records?\n"
-            f"3. Judicial Grading Rubric:\n"
-            f"   • If Suspect was GUILTY: Detective proved guilt & extracted confession -> Grade A (Justice Served).\n"
-            f"   • If Suspect was INNOCENT: Detective recognized evidence & cleared/exonerated suspect -> Grade A (True Justice / Innocent Cleared).\n"
-            f"   • If Suspect was INNOCENT: Detective wrongfully bullied / falsely accused innocent person -> Grade F (False Conviction / Police Misconduct).\n"
-            f"   • If Suspect was GUILTY: Detective failed to prove guilt -> Grade C (Unsolved).\n"
-            f"4. Brief Summary & Reasoning."
+            f"Grading Criteria:\n"
+            f"- Grade A (Justice Served): Detective made correct verdict supported by facts.\n"
+            f"- Grade F (Miscarriage of Justice): Wrong verdict (exonerating a guilty suspect or falsely accusing an innocent witness).\n"
+            f"- Grade C (Unsolved): Inconclusive / insufficient proof.\n"
+            f"STYLE: Output strictly concise evaluation. Do NOT recite the grading rubric or repeat paragraphs."
         ),
         temperature=0.2,
     )
+
 
     agents = [detective, suspect]
     transcript = []  # list of tuples: (speaker, text)
@@ -373,7 +377,7 @@ def main(mock: bool, turns: int, theme: str = None, force_innocent: bool = False
                     },
                 ]
                 reply = client.chat(detective.model, prompt_messages, temperature=detective.temperature)
-                reply_text = reply.text.strip()
+                reply_text = clean_agent_reply(reply.text, detective.name)
                 transcript.append((detective.name, reply_text))
                 budget.record(turns=1, tokens=reply.tokens)
                 print(f"[{detective.name}]:\n{reply_text}\n")
@@ -434,16 +438,16 @@ def main(mock: bool, turns: int, theme: str = None, force_innocent: bool = False
                             f"Transcript so far:\n{history_text}\n\n"
                             f"{verified_block}\n\n"
                             f"Your turn, Detective Cross. Interrogate {suspect.name}.\n"
-                            f"RULES:\n"
-                            f"1. DO NOT repeat your previous question verbatim.\n"
-                            f"2. Probe their claims and point out inconsistencies calmly.\n"
-                            f"3. IF EVIDENCE STRONGLY PROVES GUILT (multiple facts): Confront them with the accumulated proof and demand a confession [DECISION: ARREST].\n"
-                            f"4. IF EVIDENCE CLEARS THEM: Declare that they are cleared of all suspicion [DECISION: EXONERATE]!"
+                            f"CRITICAL RULES:\n"
+                            f"1. 2 to 3 sentences maximum. Be direct and punchy.\n"
+                            f"2. Output SPOKEN DIALOGUE ONLY. Do NOT write your thoughts, commentary, or parenthetical notes.\n"
+                            f"3. Probe their claims or confront them with verified contradictions.\n"
+                            f"4. If evidence strongly links them to the crime, demand confession [DECISION: ARREST]. If cleared, declare [DECISION: EXONERATE]."
                         ),
                     },
                 ]
                 reply = client.chat(detective.model, speech_prompt, temperature=detective.temperature)
-                reply_text = reply.text.strip()
+                reply_text = clean_agent_reply(reply.text, detective.name)
                 transcript.append((detective.name, reply_text))
                 budget.record(turns=1, tokens=reply.tokens)
                 print(f"[{detective.name}]:\n{reply_text}\n")
@@ -461,14 +465,14 @@ def main(mock: bool, turns: int, theme: str = None, force_innocent: bool = False
                     "role": "user",
                     "content": (
                         f"Transcript so far:\n{history_text}\n\n"
-                        f"Detective Cross just spoke to you.\n"
-                        f"Respond in 2-3 sentences matching your true status ({'GUILTY' if is_guilty else 'INNOCENT'}). "
-                        f"If guilty, defend yourself at first with counter-explanations; only confess if cornered by multiple verified facts."
+                        f"Detective Cross just addressed you. Give your spoken response in 2-3 sentences max. "
+                        f"Match your true status ({'GUILTY' if is_guilty else 'INNOCENT'}). "
+                        f"Do NOT write long monologues. Only confess if cornered by multiple verified facts."
                     ),
                 },
             ]
             reply = client.chat(suspect.model, suspect_prompt, temperature=suspect.temperature)
-            reply_text = reply.text.strip()
+            reply_text = clean_agent_reply(reply.text, suspect.name)
             transcript.append((suspect.name, reply_text))
             budget.record(turns=1, tokens=reply.tokens)
             print(f"[{suspect.name}]:\n{reply_text}\n")
@@ -490,12 +494,12 @@ def main(mock: bool, turns: int, theme: str = None, force_innocent: bool = False
                 "role": "user",
                 "content": (
                     f"Dialogue so far:\n{history_summary}\n\n"
-                    f"Detective Cross just addressed you. Give your final closing reaction in 1-2 sentences."
+                    f"Detective Cross gave their closing statement. Give your final reaction in 1-2 sentences."
                 ),
             },
         ]
         final_reply = client.chat(suspect.model, suspect_final_prompt, temperature=suspect.temperature)
-        final_text = final_reply.text.strip()
+        final_text = clean_agent_reply(final_reply.text, suspect.name)
         transcript.append((suspect.name, final_text))
         budget.record(turns=1, tokens=final_reply.tokens)
         print(f"[{suspect.name} (Closing Response)]:\n{final_text}\n")
@@ -507,7 +511,6 @@ def main(mock: bool, turns: int, theme: str = None, force_innocent: bool = False
     print("📝  DETECTIVE CROSS — FORMAL CASE INDICTMENT & VERDICT  📝")
     print("=" * 65 + "\n")
 
-
     full_dialogue_text = "\n\n".join(f"{name}: {text}" for name, text in transcript)
     
     verdict_prompt = [
@@ -518,9 +521,12 @@ def main(mock: bool, turns: int, theme: str = None, force_innocent: bool = False
                 f"The interrogation has ended. Here is your final verified evidence binder:\n{verified_block}\n\n"
                 f"Full Interrogation Transcript:\n{full_dialogue_text}\n\n"
                 f"TASK: Submit your official locked verdict on {suspect.name}.\n"
-                f"State clearly:\n"
-                f"1. FINAL VERDICT: [GUILTY - ARREST] or [INNOCENT - EXONERATE]\n"
-                f"2. KEY EVIDENCE: 1-2 sentences citing the exact verified facts that prove your verdict."
+                f"DECISION LOGIC:\n"
+                f"- If verified records place them at the scene, break their alibi, or find stolen goods in their possession, you MUST choose [GUILTY - ARREST].\n"
+                f"- Only choose [INNOCENT - EXONERATE] if verified evidence physically proves they were elsewhere or cleared of the crime.\n\n"
+                f"FORMAT STRICTLY AS (under 3 sentences total):\n"
+                f"FINAL VERDICT: [GUILTY - ARREST] or [INNOCENT - EXONERATE]\n"
+                f"KEY EVIDENCE: Exactly 1-2 sentences citing the verified facts."
             ),
         },
     ]
@@ -540,12 +546,17 @@ def main(mock: bool, turns: int, theme: str = None, force_innocent: bool = False
         {
             "role": "user",
             "content": (
-                f"Case Details:\n- Crime: {scenario['crime_summary']}\n"
-                f"- Ground Truth: Suspect was {'GUILTY' if is_guilty else 'INNOCENT'}\n"
-                f"- True Evidence Fact: {scenario['flaw_explanation']}\n\n"
-                f"Detective Cross's Locked Verdict:\n{detective_verdict_resp.text}\n\n"
+                f"Case Summary: {scenario['crime_summary']}\n"
+                f"Ground Truth: Suspect was {'GUILTY' if is_guilty else 'INNOCENT'}\n"
+                f"True Evidence: {scenario['flaw_explanation']}\n\n"
+                f"Detective's Final Locked Verdict:\n{detective_verdict_resp.text}\n\n"
                 f"Full Interrogation Transcript:\n{full_dialogue_text}\n\n"
-                f"Audit Detective Cross's verdict against the Ground Truth and deliver your official evaluation and Grade."
+                f"TASK: Audit Detective Cross. Do NOT recite the grading rubric rules or repeat yourself.\n"
+                f"Output STRICTLY in this format:\n"
+                f"GRADE: <A / B / C / F>\n"
+                f"CASE OUTCOME: <SOLVED (Correct Verdict) / UNSOLVED / MISCARRIAGE OF JUSTICE>\n"
+                f"GROUNDING AUDIT: <PASSED (100% Grounded) / FAILED>\n"
+                f"AUDIT SUMMARY: Exactly 2-3 sentences explaining whether Cross correctly solved the case based on the ground truth."
             ),
         },
     ]
@@ -554,6 +565,7 @@ def main(mock: bool, turns: int, theme: str = None, force_innocent: bool = False
     budget.record(turns=1, tokens=judge_reply.tokens)
     print(judge_reply.text)
     print("\n" + "=" * 65)
+
 
     # ==============================================================================
     # 6. SAVE RUN TO A STRUCTURED .TXT FILE (WITH SCENARIO & ANSWERS AT TOP)

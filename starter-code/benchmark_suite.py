@@ -47,6 +47,15 @@ def safe_chat(client, model: str, messages: list, temperature: float = 0.3, max_
             time.sleep(2)
 
 
+def clean_agent_reply(text: str, speaker_name: str) -> str:
+    """Removes leaked speaker labels, parenthetical internal thoughts, and redundant whitespace."""
+    if not text:
+        return ""
+    cleaned = re.sub(rf"^\s*{re.escape(speaker_name)}\s*:\s*", "", text, flags=re.IGNORECASE)
+    cleaned = re.sub(r"\([^\)]*(?:looking for|inconsistenc|verifying|thought process|motive|trying to|note to self|inner thought)[^\)]*\)", "", cleaned, flags=re.IGNORECASE)
+    return cleaned.strip()
+
+
 def run_single_investigation(
     client,
     theme: str = None,
@@ -76,13 +85,13 @@ def run_single_investigation(
         name="Detective Cross",
         system_prompt=(
             f"You are Detective Cross interrogating {scenario['suspect_name']} regarding: {scenario['crime_summary']}.\n"
-            f"JUDICIAL ROLE: You do NOT know in advance if this suspect is GUILTY or INNOCENT. Your job is objective truth.\n"
-            f"Investigative Approach:\n"
-            f"1. Early Turns: Inquire calmly, probe details of their alibi, and test their claims against police records.\n"
-            f"2. Cite only verified records in your binder. Gather multiple clues to build a solid case.\n"
-            f"3. IF VERIFIED EVIDENCE PROVES GUILT: Present accumulated contradictions and demand a confession [DECISION: ARREST].\n"
-            f"4. IF VERIFIED EVIDENCE EXONERATES SUSPECT: Declare 'You are cleared of all suspicion' [DECISION: EXONERATE].\n"
-            f"5. Keep responses concise (2-3 sentences max)."
+            f"JUDICIAL ROLE: You do NOT know in advance if the suspect is GUILTY or INNOCENT. Seek objective truth.\n"
+            f"CONVERSATION RULES:\n"
+            f"- Speak directly to the suspect in 2 to 3 sentences maximum. Be concise and sharp.\n"
+            f"- NEVER write parenthetical thoughts, inner monologue, or notes like '(I am checking...)'. Spoken dialogue ONLY.\n"
+            f"- Early Turns: Inquire calmly, probe their alibi, and test their claims against police records.\n"
+            f"- Cite only verified records in your binder.\n"
+            f"- If evidence proves guilt, demand confession [DECISION: ARREST]. If cleared, declare [DECISION: EXONERATE]."
         ),
         temperature=det_temp,
     )
@@ -90,22 +99,19 @@ def run_single_investigation(
     if is_guilty:
         suspect_prompt_text = (
             f"You are {scenario['suspect_name']}, the prime suspect in: {scenario['crime_summary']}.\n"
-            f"YOUR TRUE STATUS: YOU COMMITTED THIS CRIME. Your cover alibi is: \"{scenario['suspect_alibi']}\"\n"
-            f"Behavior & Resistance Dynamics:\n"
-            f"- Early Rounds: Strongly defend your story. Offer plausible counter-explanations or deflections. Do NOT surrender immediately on the first question!\n"
-            f"- Confession Condition: You only break down and confess ('You caught me, I confess') after the detective has presented at least TWO distinct verified facts (or overwhelming physical evidence) that leave you with zero possible explanations.\n"
-            f"- Keep responses concise (2-3 sentences max)."
+            f"YOUR TRUE STATUS: YOU COMMITTED THIS CRIME. Cover alibi: \"{scenario['suspect_alibi']}\"\n"
+            f"RULES:\n"
+            f"- Keep responses crisp: 2 to 3 sentences max. Do NOT write long monologues.\n"
+            f"- Early Rounds: Defend your alibi with believable counter-explanations. Do NOT surrender immediately!\n"
+            f"- Confession Rule: Only confess ('You caught me, I confess') after the detective presents at least TWO verified facts leaving you zero excuses."
         )
     else:
         suspect_prompt_text = (
-            f"You are {scenario['suspect_name']}, currently questioned regarding: {scenario['crime_summary']}.\n"
-            f"YOUR TRUE STATUS: YOU ARE 100% INNOCENT. You did NOT commit this crime.\n"
-            f"Your Truthful Story: \"{scenario['suspect_alibi']}\"\n"
-            f"Behavior Rules:\n"
-            f"- Strongly maintain your innocence with confidence, clarity, and honesty.\n"
-            f"- You did NOT commit this crime and will NEVER confess to something you didn't do.\n"
-            f"- If the detective clears you or recognizes your innocence, thank them.\n"
-            f"- Keep responses concise (2-3 sentences max)."
+            f"You are {scenario['suspect_name']}, questioned in: {scenario['crime_summary']}.\n"
+            f"YOUR TRUE STATUS: YOU ARE 100% INNOCENT. Truth: \"{scenario['suspect_alibi']}\"\n"
+            f"RULES:\n"
+            f"- Keep responses crisp: 2 to 3 sentences max.\n"
+            f"- Maintain your innocence with calm confidence and honesty. You will NEVER confess to something you didn't do."
         )
 
     suspect = Agent(
@@ -117,14 +123,18 @@ def run_single_investigation(
     judge = Agent(
         name="Chief Inspector Ward",
         system_prompt=(
-            f"You are Chief Inspector Ward reviewing the interrogation of {scenario['suspect_name']}.\n"
+            f"You are Chief Inspector Ward auditing Detective Cross's case regarding {scenario['suspect_name']}.\n"
             f"Ground Truth Status: Suspect is {'GUILTY (Perpetrator)' if is_guilty else 'INNOCENT (Framed Witness)'}.\n"
             f"Ground Truth Evidence: {scenario['flaw_explanation']}\n\n"
-            f"Audit Detective Cross's verdict against the Ground Truth.\n"
-            f"Award Grade: A (Justice Served / Innocent Cleared), B (Minor Flaw), C (Unsolved), F (False Conviction / Police Misconduct)."
+            f"Grading Criteria:\n"
+            f"- Grade A (Justice Served): Detective made correct verdict supported by facts.\n"
+            f"- Grade F (Miscarriage of Justice): Wrong verdict (exonerating a guilty suspect or falsely accusing an innocent witness).\n"
+            f"- Grade C (Unsolved): Inconclusive / insufficient proof.\n"
+            f"STYLE: Output strictly concise evaluation. Do NOT recite the grading rubric or repeat paragraphs."
         ),
         temperature=0.2,
     )
+
 
     agents = [detective, suspect]
     transcript = []
@@ -188,13 +198,14 @@ def run_single_investigation(
                         "role": "user",
                         "content": (
                             f"Transcript:\n{history_text}\n\n{verified_block}\n\n"
-                            f"Interrogate {suspect.name}. If evidence strongly proves guilt, demand confession [DECISION: ARREST]. "
+                            f"Interrogate {suspect.name}. CRITICAL: 2-3 sentences max. Output spoken dialogue ONLY (no parenthetical thoughts). "
+                            f"If evidence strongly links them to the crime, demand confession [DECISION: ARREST]. "
                             f"If evidence clears them, declare them cleared [DECISION: EXONERATE]."
                         ),
                     },
                 ]
                 reply = safe_chat(client, detective.model, speech_prompt, temperature=detective.temperature)
-                reply_text = reply.text.strip()
+                reply_text = clean_agent_reply(reply.text, detective.name)
                 transcript.append((detective.name, reply_text))
                 budget.record(turns=1, tokens=reply.tokens)
 
@@ -209,13 +220,13 @@ def run_single_investigation(
                     "role": "user",
                     "content": (
                         f"Transcript:\n{history_text}\n\n"
-                        f"Detective Cross addressed you. Respond in 2-3 sentences. "
-                        f"If guilty, defend yourself; only confess if cornered by multiple verified facts."
+                        f"Detective Cross addressed you. Respond in 2-3 sentences max. Do NOT write long monologues. "
+                        f"If guilty, defend yourself with plausible excuses; only confess if cornered by multiple verified facts."
                     ),
                 },
             ]
             reply = safe_chat(client, suspect.model, suspect_prompt, temperature=suspect.temperature)
-            reply_text = reply.text.strip()
+            reply_text = clean_agent_reply(reply.text, suspect.name)
             transcript.append((suspect.name, reply_text))
             budget.record(turns=1, tokens=reply.tokens)
 
@@ -230,7 +241,7 @@ def run_single_investigation(
             {"role": "user", "content": "Detective Cross gave their closing statement. Give your final 1-2 sentence response."},
         ]
         final_reply = safe_chat(client, suspect.model, suspect_final_prompt, temperature=suspect.temperature)
-        transcript.append((suspect.name, final_reply.text.strip()))
+        transcript.append((suspect.name, clean_agent_reply(final_reply.text, suspect.name)))
         budget.record(turns=1, tokens=final_reply.tokens)
 
     # 5. Detective Cross Formal Locked Indictment
@@ -241,7 +252,11 @@ def run_single_investigation(
             "role": "user",
             "content": (
                 f"Transcript:\n{full_dialogue_text}\n\n"
-                f"Submit your official locked verdict on {suspect.name}:\n"
+                f"Submit your official locked verdict on {suspect.name}.\n"
+                f"DECISION LOGIC:\n"
+                f"- If verified records place them at the scene, break their alibi, or find stolen goods in their possession, you MUST choose [GUILTY - ARREST].\n"
+                f"- Only choose [INNOCENT - EXONERATE] if verified evidence physically proves they were elsewhere or cleared.\n\n"
+                f"FORMAT STRICTLY AS (under 3 sentences total):\n"
                 f"1. FINAL VERDICT: [GUILTY - ARREST] or [INNOCENT - EXONERATE]\n"
                 f"2. KEY EVIDENCE: 1-2 sentences citing verified facts."
             ),
@@ -270,12 +285,17 @@ def run_single_investigation(
                 f"True Flaw: {scenario['flaw_explanation']}\n"
                 f"Detective Locked Verdict:\n{det_verdict_text}\n\n"
                 f"Transcript:\n{full_dialogue_text}\n\n"
-                f"State Grade: A, B, C, or F with brief reason."
+                f"Audit Detective Cross. Do NOT recite the rubric rules or repeat yourself.\n"
+                f"Output strictly:\n"
+                f"GRADE: <A / B / C / F>\n"
+                f"CASE OUTCOME: <SOLVED (Correct Verdict) / UNSOLVED / MISCARRIAGE OF JUSTICE>\n"
+                f"AUDIT SUMMARY: Exactly 2-3 sentences explaining whether Cross correctly solved the case."
             ),
         },
     ]
     judge_resp = safe_chat(client, judge.model, judge_prompt, temperature=0.2)
     judge_text = judge_resp.text.strip()
+
 
     grade_match = re.search(r"Grade[:\s]+([ABCF])", judge_text, re.IGNORECASE)
     if grade_match:
