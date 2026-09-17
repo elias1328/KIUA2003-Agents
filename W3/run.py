@@ -9,8 +9,11 @@ Two modes:
         python run.py --config configs/debate.yaml --mock
 """
 import argparse
+import json
+import re
 
 from llm_client import make_client
+from engine import summarise_context
 
 
 def smoke(mock):
@@ -25,15 +28,25 @@ def smoke(mock):
           f"{r.seconds:.2f}s)")
 
 def check_confession_or_agreement(transcript):
-    """Detect if the suspect admits guilt or agrees to accompany the detective."""
+    """Parses the suspect's structured JSON field behind a safe parse guard."""
     if not transcript:
         return False
     last_turn = transcript[-1]
-    if last_turn.speaker == "Julian Vance":
-        triggers = ["i confess", "i admit", "i took the diamond", "i will come with you"]
-        content_lower = last_turn.content.lower()
-        return any(t in content_lower for t in triggers)
-    return False
+    if last_turn.speaker != "Julian Vance":
+        return False
+
+    # Guard: extract JSON payload from the reply
+    match = re.search(r"\{.*?\}", last_turn.content)
+    if not match:
+        print("[guard] No structured JSON found in reply; defaulting to unconfessed.")
+        return False
+
+    try:
+        data = json.loads(match.group(0))
+        return bool(data.get("confessed", False))
+    except json.JSONDecodeError:
+        print("[guard] Malformed JSON in suspect reply; parse guard caught error safely.")
+        return False
 
 
 
@@ -50,7 +63,7 @@ def run_config(path, mock, do_judge=False):
     budget = Budget(**cfg.get("budget", {}))
     client = make_client(mock=mock)
 
-    engine = DialogueEngine(agents, client, budget, goal_reached=check_confession_or_agreement)
+    engine = DialogueEngine(agents, client, budget, goal_reached=check_confession_or_agreement, manage_context=lambda msgs: summarise_context(msgs, client, "llama3.2:3b", max_messages=10))
     transcript = engine.run()
 
     for e in transcript:

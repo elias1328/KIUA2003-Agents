@@ -1,0 +1,101 @@
+{
+  "meta": {
+    "topic": "Interrogation regarding the theft of the 'Star of Midnight' diamond.",
+    "config": "configs/exp-temp10.yaml"
+  },
+  "agents": [
+    {
+      "name": "Detective Cross",
+      "model": "llama3.2:3b",
+      "temperature": 1.0
+    },
+    {
+      "name": "Julian Vance",
+      "model": "llama3.2:3b",
+      "temperature": 1.0
+    }
+  ],
+  "budget": {
+    "stop_reason": "max_turns",
+    "turns": 8,
+    "tokens": 846,
+    "seconds": 0.0,
+    "limits": {
+      "max_turns": 8,
+      "max_tokens": 4000,
+      "max_seconds": 120
+    }
+  },
+  "totals": {
+    "turns": 8,
+    "prompt_tokens": 770,
+    "completion_tokens": 76,
+    "seconds": 0.08
+  },
+  "messages": [
+    {
+      "speaker": "Detective Cross",
+      "content": "I think we should weigh the costs before anything else.",
+      "prompt_tokens": 48,
+      "completion_tokens": 10,
+      "seconds": 0.01,
+      "turn_index": 0
+    },
+    {
+      "speaker": "Julian Vance",
+      "content": "Fair, but the long-term benefits clearly outweigh those costs.",
+      "prompt_tokens": 89,
+      "completion_tokens": 9,
+      "seconds": 0.01,
+      "turn_index": 1
+    },
+    {
+      "speaker": "Detective Cross",
+      "content": "Only if we ignore the people who can't adapt quickly.",
+      "prompt_tokens": 64,
+      "completion_tokens": 10,
+      "seconds": 0.01,
+      "turn_index": 2
+    },
+    {
+      "speaker": "Julian Vance",
+      "content": "We can support them with a transition plan; that's solvable.",
+      "prompt_tokens": 108,
+      "completion_tokens": 10,
+      "seconds": 0.01,
+      "turn_index": 3
+    },
+    {
+      "speaker": "Detective Cross",
+      "content": "Then let's agree the plan matters as much as the decision.",
+      "prompt_tokens": 84,
+      "completion_tokens": 11,
+      "seconds": 0.01,
+      "turn_index": 4
+    },
+    {
+      "speaker": "Julian Vance",
+      "content": "Agreed. I think that's our common ground.",
+      "prompt_tokens": 129,
+      "completion_tokens": 7,
+      "seconds": 0.01,
+      "turn_index": 5
+    },
+    {
+      "speaker": "Detective Cross",
+      "content": "I think we should weigh the costs before anything else.",
+      "prompt_tokens": 102,
+      "completion_tokens": 10,
+      "seconds": 0.01,
+      "turn_index": 6
+    },
+    {
+      "speaker": "Julian Vance",
+      "content": "Fair, but the long-term benefits clearly outweigh those costs.",
+      "prompt_tokens": 146,
+      "completion_tokens": 9,
+      "seconds": 0.01,
+      "turn_index": 7
+    }
+  ]
+}

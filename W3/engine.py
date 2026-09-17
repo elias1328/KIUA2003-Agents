@@ -49,6 +49,39 @@ def truncate_context(messages, max_messages=10):
     print(f"[context] Truncated {dropped} older message(s); keeping system prompt + last {max_messages - 1}.")
     return [messages[0]] + messages[-(max_messages - 1):]
 
+def summarise_context(messages, client, model, max_messages=10):
+    if len(messages) <= max_messages:
+        return messages
+        
+    # Split: keep system prompt at [0], isolate the old middle, keep the recent end
+    system = messages[0]
+    old = messages[1:-(max_messages // 2)]
+    recent = messages[-(max_messages // 2):]
+
+    # Ask the model to compress the old messages with strict instructions
+    summary_prompt = [
+        {
+            "role": "system", 
+            "content": (
+                "Summarise this interrogation in 3-4 sentences. "
+                "You MUST preserve all exact timestamps, specific locations, alibi claims, and contradictions. "
+                "Drop conversational filler, but keep the concrete evidence."
+            )
+        },
+        {
+            "role": "user", 
+            "content": "\n".join(f"{m['role']}: {m['content']}" for m in old)
+        }
+    ]
+    
+    # temperature=0 ensures the summary remains factual and deterministic
+    reply = client.chat(model, summary_prompt, temperature=0)
+    print(f"[context] Summarised {len(old)} older message(s) into a persistent memory block.")
+
+    # Rebuild: system + summary-as-user-message + recent verbatim messages
+    summary_msg = {"role": "user", "content": f"[Summary of earlier conversation: {reply.text}]"}
+    return [system, summary_msg] + recent
+
 
 class DialogueEngine:
     """Runs two (or more) agents in turn until a Budget stop fires.
@@ -68,7 +101,7 @@ class DialogueEngine:
         self.budget = budget
         self.transcript = []  # list[Entry]
         self.goal_reached = goal_reached or (lambda t: False)
-        self.manage_context = manage_context or truncate_context
+        self.manage_context = manage_context or summarise_context  # default WEEK 3 hook to summarise context
 
     def next_speaker(self):
         return self.agents[len(self.transcript) % len(self.agents)]
