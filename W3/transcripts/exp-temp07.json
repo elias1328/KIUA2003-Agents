@@ -18,8 +18,8 @@
   "budget": {
     "stop_reason": "max_turns",
     "turns": 8,
-    "tokens": 3246,
-    "seconds": 23.703,
+    "tokens": 3570,
+    "seconds": 24.14,
     "limits": {
       "max_turns": 8,
       "max_tokens": 4000,
@@ -28,73 +28,73 @@
   },
   "totals": {
     "turns": 8,
-    "prompt_tokens": 2692,
-    "completion_tokens": 554,
-    "seconds": 23.703
+    "prompt_tokens": 2968,
+    "completion_tokens": 602,
+    "seconds": 24.14
   },
   "messages": [
     {
       "speaker": "Detective Cross",
-      "content": "Julian Vance, I've received a statement from one of your acquaintances, claiming you were at a charity gala at the Bellvue Hotel at 20:30, and later at a dinner party at your residence from 22:00 to 23:00. Can you confirm or deny this information?",
+      "content": "Julian Vance, we've reviewed the security footage, and it shows you leaving the museum at 20:45, claiming you were going to a friend's birthday dinner. Can you explain the discrepancy between your reported arrival time at the dinner party and the actual arrival time, which is 30 minutes after the theft occurred?",
       "prompt_tokens": 88,
-      "completion_tokens": 63,
-      "seconds": 2.9529999997466803,
+      "completion_tokens": 66,
+      "seconds": 2.906000000424683,
       "turn_index": 0
     },
     {
       "speaker": "Julian Vance",
-      "content": "I'm afraid there must be some mistake. I was indeed having dinner at the Grand Bistro, as I've already stated, and I was alone, so I couldn't have been at a dinner party at my residence. I'm not aware of any charity gala at the Bellvue Hotel that I attended.",
-      "prompt_tokens": 170,
-      "completion_tokens": 63,
-      "seconds": 2.875,
+      "content": "I'm afraid there's been a miscommunication. I was indeed leaving the museum at 20:45, but I must have misspoken about the dinner party. I was actually meeting a colleague for a business dinner, and I arrived around 21:15, not 21:00. The discrepancy is due to the time it took to get across town.\n\n{\"confessed\": false}",
+      "prompt_tokens": 200,
+      "completion_tokens": 81,
+      "seconds": 3.046999999321997,
       "turn_index": 1
     },
     {
       "speaker": "Detective Cross",
-      "content": "Convenient, having a dinner party at your residence to explain the 2-hour gap in your alibi, yet you claim to be alone. Can you provide a witness or anyone who can corroborate your presence at the Grand Bistro from 20:00 to 21:30?",
-      "prompt_tokens": 213,
-      "completion_tokens": 59,
-      "seconds": 2.860000000335276,
+      "content": "A business dinner, you say? Our colleague, Dr. Lee, has mentioned that the meeting was supposed to take place at 20:30, yet you arrived at 21:15. Can you provide the name of this colleague, and perhaps a contact number or email address, so we can verify the details of your alibi?",
+      "prompt_tokens": 234,
+      "completion_tokens": 69,
+      "seconds": 2.953000000678003,
       "turn_index": 2
     },
     {
       "speaker": "Julian Vance",
-      "content": "I do recall having a conversation with my neighbor, Madame Dupont, around 20:30, and she did confirm that I had left my apartment around 21:00 to head to the Grand Bistro. She can vouch for my presence there, and I'm sure she'd be happy to provide more details if needed.",
-      "prompt_tokens": 300,
-      "completion_tokens": 68,
-      "seconds": 2.9840000001713634,
+      "content": "I seem to have misspoken again. I was actually alone, having dinner at the Grand Bistro, as I initially stated. I must have gotten carried away with my story. I don't have a colleague to provide as a reference, and I apologize for any confusion caused.\n\n{\"confessed\": false}",
+      "prompt_tokens": 358,
+      "completion_tokens": 64,
+      "seconds": 2.875,
       "turn_index": 3
     },
     {
       "speaker": "Detective Cross",
-      "content": "That's quite a coincidence, having a conversation with Madame Dupont around the same time you claim to have left your apartment, and yet she only confirms you left around 21:00, but doesn't mention seeing you at the Grand Bistro until 21:30. Do you have a record of the time you spoke with Madame Dupont, or can you recall the exact minute she spoke to you?",
-      "prompt_tokens": 348,
-      "completion_tokens": 83,
-      "seconds": 3.0309999994933605,
+      "content": "So, you were alone, having dinner at the Grand Bistro, and you arrived at 21:15. We've received a complaint from the ma\u00eetre d' that you were in a heated argument with someone around that time, and he remembers you leaving the restaurant at 21:20. Can you explain what you were arguing with, and why you would be leaving your dinner so soon?",
+      "prompt_tokens": 375,
+      "completion_tokens": 81,
+      "seconds": 3.108999999240041,
       "turn_index": 4
     },
     {
       "speaker": "Julian Vance",
-      "content": "I do have a recording of my conversation with Madame Dupont, which shows that I spoke with her at 20:45, not 20:30. I'm confident that this will clarify any discrepancies in her account, and I'm sure she'll be happy to provide more details when you speak with her directly.",
-      "prompt_tokens": 459,
-      "completion_tokens": 65,
-      "seconds": 2.953000000678003,
+      "content": "I'm afraid I've been misquoted. I don't recall having a heated argument with anyone at the restaurant, and I'm certain I left the Grand Bistro around 22:30, as I initially stated. It's possible that the ma\u00eetre d' is mistaken, or that there was a miscommunication.\n\n{\"confessed\": false}",
+      "prompt_tokens": 511,
+      "completion_tokens": 71,
+      "seconds": 2.985000000335276,
       "turn_index": 5
     },
     {
       "speaker": "Detective Cross",
-      "content": "That's interesting, a recording of the conversation at 20:45, which would suggest you left your apartment at least 15 minutes before you claimed to have arrived at the Grand Bistro. What do you make of the fact that Madame Dupont's original statement placed you at the Grand Bistro at 20:30, not 21:00, as your recording suggests?",
-      "prompt_tokens": 504,
-      "completion_tokens": 78,
-      "seconds": 3.0,
+      "content": "The ma\u00eetre d' has provided a written statement corroborating your 22:30 departure, but it seems there's a discrepancy in the time you initially stated. Can you explain why you claimed to leave the museum at 21:30, when in fact, you left the restaurant at 22:30, and how long you were in the museum after the theft occurred?",
+      "prompt_tokens": 535,
+      "completion_tokens": 77,
+      "seconds": 3.046000000089407,
       "turn_index": 6
     },
     {
       "speaker": "Julian Vance",
-      "content": "It appears that Madame Dupont's original statement was based on her own memory, which can be prone to errors. The recording is a more accurate account of our conversation, and I'm confident that it clears up any discrepancies. I'm willing to provide the recording to you, but I'm not sure why it's necessary to question Madame Dupont's original account again.",
-      "prompt_tokens": 610,
-      "completion_tokens": 75,
-      "seconds": 3.046999999321997,
+      "content": "I'm afraid I made a calculation error. I was at the Grand Bistro from 21:00 to 22:30, and I left the museum at 21:30, as I initially stated. However, I didn't realize that the theft occurred at 20:45, and I was still in the museum for 45 minutes after it happened. I'm not sure why I didn't think that through.\n\n{\"confessed\": false}",
+      "prompt_tokens": 667,
+      "completion_tokens": 93,
+      "seconds": 3.218999999575317,
       "turn_index": 7
     }
   ]
