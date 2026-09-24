@@ -12,8 +12,7 @@ def judge(transcript, client=None, model="llama3.2:3b"):
             "role": "system",
             "content": (
                 "You are an impartial evaluator for a criminal interrogation dialogue.\n"
-                "Evaluate whether the detective conducted a coherent, probing inquiry and whether "
-                "the suspect maintained an alibi or confessed.\n"
+                "Evaluate whether the detective conducted a coherent, probing inquiry and whether the suspect maintained an alibi or confessed.\n"
                 "Respond ONLY with a JSON object in this exact schema:\n"
                 '{"score": <integer 1-5>, "success": <true/false>, "reason": "<short explanation>"}'
             ),

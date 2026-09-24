@@ -1,0 +1,101 @@
+{
+  "meta": {
+    "topic": "Interrogation regarding the theft of the 'Star of Midnight' diamond.",
+    "config": "configs/fail-sycophancy.yaml"
+  },
+  "agents": [
+    {
+      "name": "Detective Cross",
+      "model": "llama3.2:3b",
+      "temperature": 0.7
+    },
+    {
+      "name": "Detective Cross",
+      "model": "llama3.2:3b",
+      "temperature": 0.7
+    }
+  ],
+  "budget": {
+    "stop_reason": "max_turns",
+    "turns": 8,
+    "tokens": 1241,
+    "seconds": 18.781,
+    "limits": {
+      "max_turns": 8,
+      "max_tokens": 4000,
+      "max_seconds": 120
+    }
+  },
+  "totals": {
+    "turns": 8,
+    "prompt_tokens": 1139,
+    "completion_tokens": 102,
+    "seconds": 18.781
+  },
+  "messages": [
+    {
+      "speaker": "Detective Cross",
+      "content": "Julian Vance, we've received your alibi from your employer, Mr. Jenkins, which places you at his office from 20:00 to 22:00. Can you confirm that you didn't leave his office until after 21:30, the time the theft occurred?",
+      "prompt_tokens": 88,
+      "completion_tokens": 59,
+      "seconds": 2.8909999998286366,
+      "turn_index": 0
+    },
+    {
+      "speaker": "Detective Cross",
+      "content": "",
+      "prompt_tokens": 137,
+      "completion_tokens": 1,
+      "seconds": 2.1090000001713634,
+      "turn_index": 1
+    },
+    {
+      "speaker": "Detective Cross",
+      "content": "(Skeptical gaze)",
+      "prompt_tokens": 137,
+      "completion_tokens": 6,
+      "seconds": 2.375,
+      "turn_index": 2
+    },
+    {
+      "speaker": "Detective Cross",
+      "content": "",
+      "prompt_tokens": 142,
+      "completion_tokens": 1,
+      "seconds": 2.1559999994933605,
+      "turn_index": 3
+    },
+    {
+      "speaker": "Detective Cross",
+      "content": "Oh, and you're certain you didn't take a short walk outside during that time?",
+      "prompt_tokens": 142,
+      "completion_tokens": 19,
+      "seconds": 2.5,
+      "turn_index": 4
+    },
+    {
+      "speaker": "Detective Cross",
+      "content": "",
+      "prompt_tokens": 160,
+      "completion_tokens": 1,
+      "seconds": 2.0940000005066395,
+      "turn_index": 5
+    },
+    {
+      "speaker": "Detective Cross",
+      "content": "(Pen poised over notebook, ready to jot down any inconsistency)",
+      "prompt_tokens": 160,
+      "completion_tokens": 14,
+      "seconds": 2.5470000002533197,
+      "turn_index": 6
+    },
+    {
+      "speaker": "Detective Cross",
+      "content": "",
+      "prompt_tokens": 173,
+      "completion_tokens": 1,
+      "seconds": 2.108999999240041,
+      "turn_index": 7
+    }
+  ]
+}

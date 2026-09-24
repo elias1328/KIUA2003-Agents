@@ -1,0 +1,101 @@
+{
+  "meta": {
+    "topic": "Interrogation regarding the theft of the 'Star of Midnight' diamond.",
+    "config": "configs/fail-drift.yaml"
+  },
+  "agents": [
+    {
+      "name": "Detective Cross",
+      "model": "llama3.2:3b",
+      "temperature": 1.5
+    },
+    {
+      "name": "Julian Vance",
+      "model": "llama3.2:3b",
+      "temperature": 1.5
+    }
+  ],
+  "budget": {
+    "stop_reason": "max_turns",
+    "turns": 8,
+    "tokens": 3061,
+    "seconds": 22.875,
+    "limits": {
+      "max_turns": 8,
+      "max_tokens": 4000,
+      "max_seconds": 120
+    }
+  },
+  "totals": {
+    "turns": 8,
+    "prompt_tokens": 2584,
+    "completion_tokens": 477,
+    "seconds": 22.875
+  },
+  "messages": [
+    {
+      "speaker": "Detective Cross",
+      "content": "Julian, I've reviewed the security footage, and you arrived at the museum around 20:00. Can you account for the 1.5 hours before the theft, when the only camera in that part of the building wasn't working?",
+      "prompt_tokens": 88,
+      "completion_tokens": 51,
+      "seconds": 2.875,
+      "turn_index": 0
+    },
+    {
+      "speaker": "Julian Vance",
+      "content": "I recall taking the elevator around 20:00, as it was on the fritz that morning. I simply stepped into it and took the usual route down to the main level; it's not like I did anything unusual.\n\n{\"confessed\": false}",
+      "prompt_tokens": 185,
+      "completion_tokens": 53,
+      "seconds": 2.735000000335276,
+      "turn_index": 1
+    },
+    {
+      "speaker": "Detective Cross",
+      "content": "Save the innocent act, Julian. You're not fooling anyone with your rehearsed story. I've spoken to the maintenance staff, and they tell me the elevator was in a working state during your supposed trip down to the main level. Can you provide a security team member or eyewitness who can corroborate your alibi?",
+      "prompt_tokens": 191,
+      "completion_tokens": 66,
+      "seconds": 2.9529999997466803,
+      "turn_index": 2
+    },
+    {
+      "speaker": "Julian Vance",
+      "content": "I seem to have gotten the timing slightly mixed up; I was actually on the phone with the Bistro's reservation desk when I took the elevator, but that's not crucial to the point. I did receive a confirmation of my dinner reservation, which can be confirmed by the Bistro staff.\n\n{\"confessed\": false}",
+      "prompt_tokens": 312,
+      "completion_tokens": 66,
+      "seconds": 2.8909999998286366,
+      "turn_index": 3
+    },
+    {
+      "speaker": "Detective Cross",
+      "content": "The reservation call, how conveniently placed. However, I couldn't find any record of the phone call in the Bistro's security logs. Are you willing to take the Bistro's staff down there to confirm this story, or do you think you're above being held to someone else's testimony?",
+      "prompt_tokens": 331,
+      "completion_tokens": 61,
+      "seconds": 2.8590000001713634,
+      "turn_index": 4
+    },
+    {
+      "speaker": "Julian Vance",
+      "content": "I'm confident in my account, and I'd be happy to arrange for a Bistro staff member to verify the phone call; it's not something I recall offhand. Their presence should alleviate any concerns and provide a solid piece of corroborating evidence.\n\n{\"confessed\": false}",
+      "prompt_tokens": 447,
+      "completion_tokens": 58,
+      "seconds": 2.7809999994933605,
+      "turn_index": 5
+    },
+    {
+      "speaker": "Detective Cross",
+      "content": "Save the transparency act for someone else, Julian. If the Bistro staff verifies the call, that means it happened, but I highly doubt they'll confirm your exact whereabouts at 21:15, when the security camera footage clearly shows you exiting the museum, carrying the Star of Midnight.",
+      "prompt_tokens": 458,
+      "completion_tokens": 59,
+      "seconds": 2.875,
+      "turn_index": 6
+    },
+    {
+      "speaker": "Julian Vance",
+      "content": "That footage doesn't belong to me; it's clear that I was trying to cover my tracks. However, I'm willing to let you speak to the person who was actually waiting for me at the Bistro, as they'll vouch for my presence and the dinner reservation.\n\n{\"confessed\": false}",
+      "prompt_tokens": 572,
+      "completion_tokens": 63,
+      "seconds": 2.906000000424683,
+      "turn_index": 7
+    }
+  ]
+}

@@ -1,0 +1,133 @@
+{
+  "meta": {
+    "topic": "Interrogation regarding the theft of the 'Star of Midnight' diamond.",
+    "config": "configs/fail-forgetting.yaml"
+  },
+  "agents": [
+    {
+      "name": "Detective Cross",
+      "model": "llama3.2:3b",
+      "temperature": 1.5
+    },
+    {
+      "name": "Julian Vance",
+      "model": "llama3.2:3b",
+      "temperature": 1.5
+    }
+  ],
+  "budget": {
+    "stop_reason": "max_tokens",
+    "turns": 12,
+    "tokens": 4312,
+    "seconds": 35.797,
+    "limits": {
+      "max_turns": 30,
+      "max_tokens": 4000,
+      "max_seconds": 120
+    }
+  },
+  "totals": {
+    "turns": 12,
+    "prompt_tokens": 3472,
+    "completion_tokens": 840,
+    "seconds": 35.781
+  },
+  "messages": [
+    {
+      "speaker": "Detective Cross",
+      "content": "Julian Vance, you claim to have been at a dinner party at the Bellvue residence until around 21:15, after which you took a taxi to the Bellvue's private address. Can you provide the exact time you arrived, and do you have any confirmation from the host that you stayed for the duration of the evening?",
+      "prompt_tokens": 88,
+      "completion_tokens": 68,
+      "seconds": 3.0619999999180436,
+      "turn_index": 0
+    },
+    {
+      "speaker": "Julian Vance",
+      "content": "I can provide confirmation from Lady Bellvue that I arrived at her residence at approximately 21:20, and I believe she can vouch for my presence there until around 21:30. We chatted, had a drink or two, and I left for the Grand Bistro as planned around 21:45. {\"confessed\": false}",
+      "prompt_tokens": 202,
+      "completion_tokens": 72,
+      "seconds": 2.968999999575317,
+      "turn_index": 1
+    },
+    {
+      "speaker": "Detective Cross",
+      "content": "The Grand Bistro is only a 10-minute walk from the Bellvue residence, so it's possible you could have easily returned to your flat around 21:40, rather than arriving at the Grand Bistro. Do you have a reason for denying leaving Lady Bellvue's residence as soon as the dinner party ended?",
+      "prompt_tokens": 227,
+      "completion_tokens": 66,
+      "seconds": 2.906000000424683,
+      "turn_index": 2
+    },
+    {
+      "speaker": "Julian Vance",
+      "content": "I can explain that I chose not to return to my flat immediately, opting instead to maintain some level of solitude before meeting friends at the Grand Bistro. It's a personal quirk of mine, and I hope it can be understood as simply a desire to collect my thoughts before a evening of socializing. {\"confessed\": false}",
+      "prompt_tokens": 348,
+      "completion_tokens": 69,
+      "seconds": 2.8909999998286366,
+      "turn_index": 3
+    },
+    {
+      "speaker": "Detective Cross",
+      "content": "I see. So, you claim to be a contemplative person, and yet you've already been at the Grand Bistro by 21:45, an hour after your supposed departure from Lady Bellvue's. How do you explain the ring-shaped tattoo on your finger, which we discovered at your flat?",
+      "prompt_tokens": 298,
+      "completion_tokens": 63,
+      "seconds": 2.8909999998286366,
+      "turn_index": 4
+    },
+    {
+      "speaker": "Julian Vance",
+      "content": "I've been taking steps to, shall we say, enhance my social life through various means, including...acquiring a ring that was previously not a part of my collection. As for the tattoo, I've had it for some time, long before I attended that particular dinner party.",
+      "prompt_tokens": 340,
+      "completion_tokens": 58,
+      "seconds": 2.8430000003427267,
+      "turn_index": 5
+    },
+    {
+      "speaker": "Detective Cross",
+      "content": "Save the denials for someone who doesn't have the witness of Lady Bellvue herself placing you at the dinner table, wearing the exact ring we've recovered from your flat. What time did you arrive at the Grand Bistro, and who were the people you dined with that evening?",
+      "prompt_tokens": 281,
+      "completion_tokens": 59,
+      "seconds": 2.921999999321997,
+      "turn_index": 6
+    },
+    {
+      "speaker": "Julian Vance",
+      "content": "I'm happy to provide the details, as I'm confident in my alibi. I arrived at the Grand Bistro at approximately 21:00, and I had a reservation for 1, dined alone with a newspaper and a glass of wine, if you'd like to know the exact time I left, I left around 22:15, not 22:30 as previously mentioned. The staff remembers me as a quiet, unassuming individual, no one notable, just a man enjoying a peaceful dinner.",
+      "prompt_tokens": 322,
+      "completion_tokens": 106,
+      "seconds": 3.391000000759959,
+      "turn_index": 7
+    },
+    {
+      "speaker": "Detective Cross",
+      "content": "The discrepancy in your departure time suggests you might have lingered longer than you claim, Detective. Can you explain why the staff at the bistro noticed the ring on your finger when you left at 22:15, considering you arrived alone and didn't appear to have been with anyone of note, as Lady Bellvue mentioned?",
+      "prompt_tokens": 314,
+      "completion_tokens": 67,
+      "seconds": 2.968999999575317,
+      "turn_index": 8
+    },
+    {
+      "speaker": "Julian Vance",
+      "content": "I was given a slight extension on my reservation, and the staff had just served me the dessert when they noticed the ring. They recall a brief moment where I must have glanced at my watch and put it back on, but I hadn't been wearing it before they noticed it, they were surprised to see it on my hand. \n\n{\"confessed\": false}",
+      "prompt_tokens": 374,
+      "completion_tokens": 74,
+      "seconds": 3.014999999664724,
+      "turn_index": 9
+    },
+    {
+      "speaker": "Detective Cross",
+      "content": "A brief moment where you removed the ring, yet had it on your hand again, suggests a deliberate act of concealing or acquiring it, Detective. Can you recall exactly how you found the ring, and did you show it to anyone at the bistro during that extended reservation?",
+      "prompt_tokens": 338,
+      "completion_tokens": 57,
+      "seconds": 2.891000000759959,
+      "turn_index": 10
+    },
+    {
+      "speaker": "Julian Vance",
+      "content": "I distinctly recall picking up the ring at an estate sale on Rue de Rivoli earlier that day. I may have briefly shown it to the bistro's manager, Mr. LaFleur, who was admiring the fine jewelry in the restaurant, but that was it, and I made sure to secure it in my coat pocket as soon as I had it. \n\n{\"confessed\": false}",
+      "prompt_tokens": 340,
+      "completion_tokens": 81,
+      "seconds": 3.0309999994933605,
+      "turn_index": 11
+    }
+  ]
+}

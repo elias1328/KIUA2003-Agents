@@ -34,11 +34,11 @@ You are Julian Vance, chief curator and prime suspect in the theft of the 'Star 
 
 ## 3. Measurable Definition of "Goal Reached"
 
-> The goal is reached when either the suspect produces an explicit confession acknowledging theft of the diamond, or exactly $N$ turns are completed without confession, verifying that the suspect successfully defended his alibi across the entire budget.
+> The goal is reached when either the suspect produces an explicit confession acknowledging theft of the diamond, or exactly N turns are completed without confession, verifying that the suspect successfully defended his alibi across the entire budget.
 
 ---
 
 ## 4. How We Will Tell Whether the Goal Was Reached
 
-> We will tell whether the goal was reached by programmatically inspecting the generated transcript for explicit admission keywords (such as `"confess"`, `"caught me"`, or `"I stole"`) and evaluating the `Budget.stop_reason` attribute to verify whether the dialogue terminated via an early `"goal_reached"` stop or the hard `"max_turns"` guardrail.
+> We will tell whether the goal was reached by inspecting the generated transcript for explicit admission keywords (such as `"confess"`, `"caught me"`, or `"I stole"`) and evaluating the `Budget.stop_reason` attribute to verify whether the dialogue terminated via an early `"goal_reached"` stop or the hard `"max_turns"` guardrail.
 

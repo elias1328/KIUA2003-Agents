@@ -101,7 +101,7 @@ class DialogueEngine:
         self.budget = budget
         self.transcript = []  # list[Entry]
         self.goal_reached = goal_reached or (lambda t: False)
-        self.manage_context = manage_context or summarise_context  # default WEEK 3 hook to summarise context
+        self.manage_context = manage_context or summarise_context # default WEEK 3 hook to summarise context
 
     def next_speaker(self):
         return self.agents[len(self.transcript) % len(self.agents)]

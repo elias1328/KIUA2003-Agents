@@ -14,6 +14,7 @@ import re
 
 from llm_client import make_client
 from engine import summarise_context
+from engine import truncate_context
 
 
 def smoke(mock):
@@ -76,8 +77,23 @@ def run_config(path, mock, do_judge=False):
 
     if do_judge:
         from judge import judge
+        import os
+        
         result = judge(transcript, client=client)
         print(f"[Judge verdict: score={result.get('score')}/5, success={result.get('success')}, reason='{result.get('reason')}']")
+        
+        # Create the judge_docs directory if it doesn't exist
+        os.makedirs("judge_docs", exist_ok=True)
+        
+        #Generate a filename based on the config used (e.g., exp-temp00_judge.json)
+        config_name = os.path.basename(path).replace(".yaml", "_judge.json")
+        out_path = os.path.join("judge_docs", config_name)
+        
+        #Save the result dictionary as a formatted JSON file
+        with open(out_path, "w") as f:
+            json.dump(result, f, indent=2)
+            
+        print(f"[Saved judge verdict to {out_path}]")
 
 
 if __name__ == "__main__":

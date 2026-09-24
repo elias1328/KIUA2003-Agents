@@ -18,9 +18,9 @@ agents:
     model: "llama3.2:3b"
     temperature: 0.7
 
-  - name: Julian Vance
+  - name: Detective Cross
     system_prompt: >
-      You are Julian Vance interrogating Detective Cross about the theft of the
+      You are Detective Cross interrogating Julian Vance about the theft of the
       'Star of Midnight' diamond from the Grand Gallery vault at 21:30.
       Ask direct, pointed questions probing his whereabouts and uncover any inconsistencies in his alibi.
       Be concise: 1 to 2 sentences per response.
