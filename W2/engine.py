@@ -27,23 +27,25 @@ class Entry:
 
 
 def view_for(agent, transcript):
-    """Build the message list to send to `agent`, from ITS point of view.
+    #1. Start with the agents persona instructions
+    messages = [{"role": "system", "content": agent.system_prompt}]
 
-    Requirements (this is the key idea of Week 2):
-      - first message: {"role": "system", "content": agent.system_prompt}
-      - for each Entry in transcript:
-            role = "assistant" if it was spoken by THIS agent
-            role = "user"      if it was spoken by the OTHER agent
-      - if the transcript is empty (turn 0), add a user message like
-            {"role": "user", "content": "You speak first."}
-        so the model always gets at least system + user.
-      - return the list of {"role", "content"} dicts.
+    #2. If nobody has spoken yet, give the first agent a push to start
+    if not transcript:
+        messages.append({"role": "user", "content": "You speak first."})
+        return messages
 
-    Tip: test it by hand-building a 3-entry transcript and printing the view for
-    each of your two agents; the roles should be mirror images.
-    """
-    # TODO (WEEK 2): implement and DELETE the line below.
-    raise NotImplementedError("Implement view_for; see the docstring.")
+    #3. Otherwise, convert each message from this agent's point of view
+    for entry in transcript:
+        if entry.speaker == agent.name:
+            role = "assistant" # I said this
+        else:
+            role = "user" # The other agent said this to me
+
+        messages.append({"role": role, "content": entry.content})
+
+    #4. Return the list of message directories
+    return messages
 
 
 class DialogueEngine:
@@ -70,23 +72,40 @@ class DialogueEngine:
         return self.agents[len(self.transcript) % len(self.agents)]
 
     def run(self):
-        """Run the dialogue to completion. Return the final transcript.
+        # 1. Keep going until a limit fires (turns, tokens, or time)
+        while not self.budget.exhausted():
 
-        Loop shape (fill in the body):
-            while not self.budget.exhausted():
-                speaker = self.next_speaker()
-                messages = self.manage_context(view_for(speaker, self.transcript))
-                reply = self.client.chat(speaker.model, messages, speaker.temperature)
-                append Entry(speaker.name, reply.text, reply.prompt_tokens,
-                             reply.completion_tokens, reply.seconds,
-                             len(self.transcript)) to self.transcript
-                self.budget.record(turns=1, tokens=reply.tokens)
-                if self.goal_reached(self.transcript):
-                    self.budget.stop("goal_reached")
-            return self.transcript
-        """
-        # TODO (WEEK 2): implement the loop above and DELETE this line.
-        raise NotImplementedError("Implement DialogueEngine.run; see the docstring.")
+            # 2. Pick who speaks next
+            speaker = self.next_speaker()
+
+            # 3. Create the perspective-correct message list using view_for
+            messages = self.manage_context(view_for(speaker, self.transcript))
+
+            # 4. Call the LLM to get the response
+            reply = self.client.chat(speaker.model, messages, speaker.temperature)
+
+            # 5. Wrap the reply and its metrics (tokens, time) into an Entry
+            entry = Entry(
+                speaker=speaker.name,
+                content=reply.text,
+                prompt_tokens=reply.prompt_tokens,
+                completion_tokens=reply.completion_tokens,
+                seconds=reply.seconds,
+                turn_index=len(self.transcript),
+            )
+            self.transcript.append(entry)
+
+            # 6. Inform the budget of turns and tokens used
+            self.budget.record(turns=1, tokens=reply.tokens)
+
+            # 7. Check if domain goal is met (e.g price agreed)
+            if self.goal_reached(self.transcript):
+                self.budget.stop("goal_reached")
+
+        # When loop finishes, return the full conversation history
+        return self.transcript
+
+
 
     # === bookkeeping below is DONE ===
 
@@ -112,3 +131,5 @@ class DialogueEngine:
         with open(path, "w") as f:
             json.dump(record, f, indent=2)
         return path
+
+

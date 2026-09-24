@@ -1,0 +1,101 @@
+{
+  "meta": {
+    "topic": "Interrogation regarding the theft of the 'Star of Midnight' diamond.",
+    "config": "configs/interrogation.yaml"
+  },
+  "agents": [
+    {
+      "name": "Detective Cross",
+      "model": "llama3.2:3b",
+      "temperature": 0.7
+    },
+    {
+      "name": "Julian Vance",
+      "model": "llama3.2:3b",
+      "temperature": 0.7
+    }
+  ],
+  "budget": {
+    "stop_reason": "max_turns",
+    "turns": 8,
+    "tokens": 2921,
+    "seconds": 41.466,
+    "limits": {
+      "max_turns": 8,
+      "max_tokens": 4000,
+      "max_seconds": 120
+    }
+  },
+  "totals": {
+    "turns": 8,
+    "prompt_tokens": 2459,
+    "completion_tokens": 462,
+    "seconds": 41.465
+  },
+  "messages": [
+    {
+      "speaker": "Detective Cross",
+      "content": "Julian Vance, I've received a report that you were seen leaving your residence at 20:45, claiming you were heading out for dinner with friends. Can you confirm or deny that you left your flat before 21:30, the time the 'Star of Midnight' diamond was stolen?",
+      "prompt_tokens": 93,
+      "completion_tokens": 61,
+      "seconds": 4.812955315999716,
+      "turn_index": 0
+    },
+    {
+      "speaker": "Julian Vance",
+      "content": "I can confirm that I left my residence around 20:45, but I was actually meeting a colleague for dinner, not friends. We had made plans for a dinner engagement at the Grand Bistro, and I was running a bit behind schedule.",
+      "prompt_tokens": 167,
+      "completion_tokens": 51,
+      "seconds": 5.90284953200171,
+      "turn_index": 1
+    },
+    {
+      "speaker": "Detective Cross",
+      "content": "You were running behind schedule, yet you arrived at the Grand Bistro at 21:10, according to your own watch. Did you actually meet your colleague, or did you simply use the dinner engagement as an excuse to be in the area, close to the Grand Gallery vault?",
+      "prompt_tokens": 204,
+      "completion_tokens": 58,
+      "seconds": 5.614037285002269,
+      "turn_index": 2
+    },
+    {
+      "speaker": "Julian Vance",
+      "content": "I did arrive at the Grand Bistro a bit later than expected, but I can assure you that I was indeed waiting for my colleague, and we did have dinner together. The watch was accurate, and I'm not aware of any reason why I would fabricate such a detail.",
+      "prompt_tokens": 284,
+      "completion_tokens": 58,
+      "seconds": 5.151369548999355,
+      "turn_index": 3
+    },
+    {
+      "speaker": "Detective Cross",
+      "content": "We've received an email from the Grand Bistro, stating that your table was reserved for 21:00, but you didn't arrive until 21:30, more than an hour after the planned start time. Can you explain the discrepancy between your alibi and the restaurant's records?",
+      "prompt_tokens": 328,
+      "completion_tokens": 60,
+      "seconds": 5.021064554999612,
+      "turn_index": 4
+    },
+    {
+      "speaker": "Julian Vance",
+      "content": "It appears I've been misinformed about my table reservation. I've checked the Grand Bistro's records, and I believe the email must be a mistake, as I did arrive at 21:30, but that was actually right on schedule.",
+      "prompt_tokens": 410,
+      "completion_tokens": 52,
+      "seconds": 4.510157172000618,
+      "turn_index": 5
+    },
+    {
+      "speaker": "Detective Cross",
+      "content": "That's a convenient coincidence, Julian. If your table reservation was indeed mistaken, can you explain why the restaurant's staff would have assumed you had a 1-hour wait, considering your actual arrival time was 21:30, almost immediately after the alleged theft occurred?",
+      "prompt_tokens": 448,
+      "completion_tokens": 55,
+      "seconds": 4.969087233999744,
+      "turn_index": 6
+    },
+    {
+      "speaker": "Julian Vance",
+      "content": "I think there's been a miscommunication about the timing of my arrival. I didn't wait at all, I simply arrived at the restaurant after my dinner was already underway, as I had been running behind schedule. The staff must have assumed I was running late, but in reality, I arrived promptly at 21:30.",
+      "prompt_tokens": 525,
+      "completion_tokens": 67,
+      "seconds": 5.4834383000015805,
+      "turn_index": 7
+    }
+  ]
+}
