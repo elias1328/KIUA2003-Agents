@@ -18,8 +18,8 @@
   "budget": {
     "stop_reason": "max_turns",
     "turns": 8,
-    "tokens": 3061,
-    "seconds": 22.875,
+    "tokens": 3308,
+    "seconds": 23.828,
     "limits": {
       "max_turns": 8,
       "max_tokens": 4000,
@@ -28,73 +28,73 @@
   },
   "totals": {
     "turns": 8,
-    "prompt_tokens": 2584,
-    "completion_tokens": 477,
-    "seconds": 22.875
+    "prompt_tokens": 2734,
+    "completion_tokens": 574,
+    "seconds": 23.828
   },
   "messages": [
     {
       "speaker": "Detective Cross",
-      "content": "Julian, I've reviewed the security footage, and you arrived at the museum around 20:00. Can you account for the 1.5 hours before the theft, when the only camera in that part of the building wasn't working?",
+      "content": "Julian Vance, we have eyewitness accounts placing you near the Grand Gallery around 20:45, roughly an hour before the 'Star of Midnight' went missing. Can you account for your presence during that time?",
       "prompt_tokens": 88,
-      "completion_tokens": 51,
-      "seconds": 2.875,
+      "completion_tokens": 44,
+      "seconds": 2.75,
       "turn_index": 0
     },
     {
       "speaker": "Julian Vance",
-      "content": "I recall taking the elevator around 20:00, as it was on the fritz that morning. I simply stepped into it and took the usual route down to the main level; it's not like I did anything unusual.\n\n{\"confessed\": false}",
-      "prompt_tokens": 185,
-      "completion_tokens": 53,
-      "seconds": 2.735000000335276,
+      "content": "I can certainly clarify my whereabouts around that time. I was attending a conference at the Grand Gallery, actually presenting a paper on gemology, and I left the venue around 21:15. I'm not sure where the eyewitness accounts got the time wrong, but I can assure you I was on the other side of the city by then. \n\n{\"confessed\": false}",
+      "prompt_tokens": 178,
+      "completion_tokens": 77,
+      "seconds": 3.0470000002533197,
       "turn_index": 1
     },
     {
       "speaker": "Detective Cross",
-      "content": "Save the innocent act, Julian. You're not fooling anyone with your rehearsed story. I've spoken to the maintenance staff, and they tell me the elevator was in a working state during your supposed trip down to the main level. Can you provide a security team member or eyewitness who can corroborate your alibi?",
-      "prompt_tokens": 191,
-      "completion_tokens": 66,
-      "seconds": 2.9529999997466803,
+      "content": "A conference, you say? I've checked the guest list and schedule for that evening, and I couldn't find any record of you presenting a paper on gemology around 21:00. Do you have a copy of your presentation notes or a receipt to prove your attendance?",
+      "prompt_tokens": 208,
+      "completion_tokens": 57,
+      "seconds": 2.8119999999180436,
       "turn_index": 2
     },
     {
       "speaker": "Julian Vance",
-      "content": "I seem to have gotten the timing slightly mixed up; I was actually on the phone with the Bistro's reservation desk when I took the elevator, but that's not crucial to the point. I did receive a confirmation of my dinner reservation, which can be confirmed by the Bistro staff.\n\n{\"confessed\": false}",
-      "prompt_tokens": 312,
-      "completion_tokens": 66,
-      "seconds": 2.8909999998286366,
+      "content": "I must have misremembered the details of my presentation. I did attend a conference, but I don't have any concrete evidence of my attendance or a presentation schedule to back it up. I've worked on a multitude of projects and events over the years, and it's possible my recollection is faulty.\n\n{\"confessed\": false}",
+      "prompt_tokens": 320,
+      "completion_tokens": 69,
+      "seconds": 2.906000000424683,
       "turn_index": 3
     },
     {
       "speaker": "Detective Cross",
-      "content": "The reservation call, how conveniently placed. However, I couldn't find any record of the phone call in the Bistro's security logs. Are you willing to take the Bistro's staff down there to confirm this story, or do you think you're above being held to someone else's testimony?",
-      "prompt_tokens": 331,
-      "completion_tokens": 61,
-      "seconds": 2.8590000001713634,
+      "content": "I see. So, your recollection of your presence at the conference around 21:15 is also based on faulty memory. That raises a question about your trustworthiness. Can you provide me with a list of individuals who can vouch for your alibi during that time, such as colleagues or acquaintances who attended the conference with you?",
+      "prompt_tokens": 342,
+      "completion_tokens": 71,
+      "seconds": 2.9529999997466803,
       "turn_index": 4
     },
     {
       "speaker": "Julian Vance",
-      "content": "I'm confident in my account, and I'd be happy to arrange for a Bistro staff member to verify the phone call; it's not something I recall offhand. Their presence should alleviate any concerns and provide a solid piece of corroborating evidence.\n\n{\"confessed\": false}",
-      "prompt_tokens": 447,
-      "completion_tokens": 58,
-      "seconds": 2.7809999994933605,
+      "content": "I did attend the conference with a few colleagues, but I'm not sure if any of them are available to confirm my presence. I'm currently working on some projects, and I'm not at liberty to disclose the identities of my colleagues just yet. However, I'm more than happy to provide contact information, and you can reach out to them to confirm my account.\n\n{\"confessed\": false}",
+      "prompt_tokens": 468,
+      "completion_tokens": 81,
+      "seconds": 3.1409999998286366,
       "turn_index": 5
     },
     {
       "speaker": "Detective Cross",
-      "content": "Save the transparency act for someone else, Julian. If the Bistro staff verifies the call, that means it happened, but I highly doubt they'll confirm your exact whereabouts at 21:15, when the security camera footage clearly shows you exiting the museum, carrying the Star of Midnight.",
-      "prompt_tokens": 458,
-      "completion_tokens": 59,
-      "seconds": 2.875,
+      "content": "I'll keep that in mind, Julian. One more thing: your security personnel told me that you were actually leaving the building around 20:45, citing an early departure from your hotel to catch a flight. Are you trying to cover a different alibi, or do you have an unexplained reason for not recalling your departure from the conference?",
+      "prompt_tokens": 502,
+      "completion_tokens": 71,
+      "seconds": 2.9380000000819564,
       "turn_index": 6
     },
     {
       "speaker": "Julian Vance",
-      "content": "That footage doesn't belong to me; it's clear that I was trying to cover my tracks. However, I'm willing to let you speak to the person who was actually waiting for me at the Bistro, as they'll vouch for my presence and the dinner reservation.\n\n{\"confessed\": false}",
-      "prompt_tokens": 572,
-      "completion_tokens": 63,
-      "seconds": 2.906000000424683,
+      "content": "I see what's happened here. I think there's been a bit of a mix-up with my schedule. I did indeed check out of my hotel around 20:45, but I was planning to leave the conference a bit later than that. I think my security team might have gotten it wrong, or perhaps they were trying to help me out. I'm not trying to cover anything up, it's just a matter of my memory being a bit foggy on the specifics.\n\n{\"confessed\": false}",
+      "prompt_tokens": 628,
+      "completion_tokens": 104,
+      "seconds": 3.281000000424683,
       "turn_index": 7
     }
   ]

@@ -7,19 +7,19 @@
     {
       "name": "Detective Cross",
       "model": "llama3.2:3b",
-      "temperature": 1.5
+      "temperature": 0.7
     },
     {
       "name": "Julian Vance",
       "model": "llama3.2:3b",
-      "temperature": 1.5
+      "temperature": 0.7
     }
   ],
   "budget": {
     "stop_reason": "max_tokens",
     "turns": 12,
-    "tokens": 4312,
-    "seconds": 35.797,
+    "tokens": 4136,
+    "seconds": 36.625,
     "limits": {
       "max_turns": 30,
       "max_tokens": 4000,
@@ -28,105 +28,105 @@
   },
   "totals": {
     "turns": 12,
-    "prompt_tokens": 3472,
-    "completion_tokens": 840,
-    "seconds": 35.781
+    "prompt_tokens": 3352,
+    "completion_tokens": 784,
+    "seconds": 36.625
   },
   "messages": [
     {
       "speaker": "Detective Cross",
-      "content": "Julian Vance, you claim to have been at a dinner party at the Bellvue residence until around 21:15, after which you took a taxi to the Bellvue's private address. Can you provide the exact time you arrived, and do you have any confirmation from the host that you stayed for the duration of the evening?",
+      "content": "Julian Vance, I've reviewed your alibi for the time of the theft - a dinner party at a friend's residence, supposedly from 18:00 to 22:00. Can you confirm that you left the party at 21:30 and walked home, as you claimed?",
       "prompt_tokens": 88,
-      "completion_tokens": 68,
-      "seconds": 3.0619999999180436,
+      "completion_tokens": 60,
+      "seconds": 4.686999999918044,
       "turn_index": 0
     },
     {
       "speaker": "Julian Vance",
-      "content": "I can provide confirmation from Lady Bellvue that I arrived at her residence at approximately 21:20, and I believe she can vouch for my presence there until around 21:30. We chatted, had a drink or two, and I left for the Grand Bistro as planned around 21:45. {\"confessed\": false}",
-      "prompt_tokens": 202,
-      "completion_tokens": 72,
-      "seconds": 2.968999999575317,
+      "content": "I recall the evening quite clearly, and I left my friend's residence around 21:45 to take a short walk, which should have been long enough to cover the distance to the Grand Bistro. I then arrived around 21:50 and had dinner at 21:55, as I had reservations.\n\n{\"confessed\": false}",
+      "prompt_tokens": 194,
+      "completion_tokens": 70,
+      "seconds": 2.7349999994039536,
       "turn_index": 1
     },
     {
       "speaker": "Detective Cross",
-      "content": "The Grand Bistro is only a 10-minute walk from the Bellvue residence, so it's possible you could have easily returned to your flat around 21:40, rather than arriving at the Grand Bistro. Do you have a reason for denying leaving Lady Bellvue's residence as soon as the dinner party ended?",
-      "prompt_tokens": 227,
-      "completion_tokens": 66,
-      "seconds": 2.906000000424683,
+      "content": "Your walk should have taken approximately 15 minutes, yet you claim to have arrived at the Grand Bistro around 21:50. Did you actually stop for a drink or conversation at the bistro at 21:50, or did you simply walk past it?",
+      "prompt_tokens": 217,
+      "completion_tokens": 55,
+      "seconds": 2.6400000005960464,
       "turn_index": 2
     },
     {
       "speaker": "Julian Vance",
-      "content": "I can explain that I chose not to return to my flat immediately, opting instead to maintain some level of solitude before meeting friends at the Grand Bistro. It's a personal quirk of mine, and I hope it can be understood as simply a desire to collect my thoughts before a evening of socializing. {\"confessed\": false}",
-      "prompt_tokens": 348,
-      "completion_tokens": 69,
-      "seconds": 2.8909999998286366,
+      "content": "I may have been a bit rushed, but I did indeed stop for a drink at the bistro around 21:50, and I recall having a brief conversation with the bartender. I recall the conversation quite vividly, as it was with a friend of mine who was also a patron.\n\n{\"confessed\": false}",
+      "prompt_tokens": 327,
+      "completion_tokens": 66,
+      "seconds": 2.9380000000819564,
       "turn_index": 3
     },
     {
       "speaker": "Detective Cross",
-      "content": "I see. So, you claim to be a contemplative person, and yet you've already been at the Grand Bistro by 21:45, an hour after your supposed departure from Lady Bellvue's. How do you explain the ring-shaped tattoo on your finger, which we discovered at your flat?",
-      "prompt_tokens": 298,
-      "completion_tokens": 63,
-      "seconds": 2.8909999998286366,
+      "content": "Your friend, you say? Yet, when I spoke with your acquaintances, they reported that you were alone during that time, and none of them saw you with a friend at the bistro. Can you explain this discrepancy?",
+      "prompt_tokens": 282,
+      "completion_tokens": 47,
+      "seconds": 2.75,
       "turn_index": 4
     },
     {
       "speaker": "Julian Vance",
-      "content": "I've been taking steps to, shall we say, enhance my social life through various means, including...acquiring a ring that was previously not a part of my collection. As for the tattoo, I've had it for some time, long before I attended that particular dinner party.",
-      "prompt_tokens": 340,
-      "completion_tokens": 58,
-      "seconds": 2.8430000003427267,
+      "content": "I must have misspoken earlier. I was indeed alone at the bistro, and I must have gotten carried away with the conversation. I don't recall having a conversation with a friend, but I do remember enjoying a fine glass of wine and savoring the meal.\n\n{\"confessed\": false}",
+      "prompt_tokens": 310,
+      "completion_tokens": 63,
+      "seconds": 2.9369999999180436,
       "turn_index": 5
     },
     {
       "speaker": "Detective Cross",
-      "content": "Save the denials for someone who doesn't have the witness of Lady Bellvue herself placing you at the dinner table, wearing the exact ring we've recovered from your flat. What time did you arrive at the Grand Bistro, and who were the people you dined with that evening?",
-      "prompt_tokens": 281,
-      "completion_tokens": 59,
-      "seconds": 2.921999999321997,
+      "content": "A fine glass of wine and a meal, you say? I've reviewed the bistro's security footage, and it shows you arriving at 21:50, but leaving around 22:20. Can you account for the two-and-a-half-hour gap during which time you claim to have been alone and enjoying your meal?",
+      "prompt_tokens": 267,
+      "completion_tokens": 67,
+      "seconds": 2.9380000000819564,
       "turn_index": 6
     },
     {
       "speaker": "Julian Vance",
-      "content": "I'm happy to provide the details, as I'm confident in my alibi. I arrived at the Grand Bistro at approximately 21:00, and I had a reservation for 1, dined alone with a newspaper and a glass of wine, if you'd like to know the exact time I left, I left around 22:15, not 22:30 as previously mentioned. The staff remembers me as a quiet, unassuming individual, no one notable, just a man enjoying a peaceful dinner.",
-      "prompt_tokens": 322,
-      "completion_tokens": 106,
-      "seconds": 3.391000000759959,
+      "content": "I must have lost track of time, it's not uncommon for me to get engrossed in a good book or a fascinating conversation. I'm pretty sure I took a short walk outside to clear my head around 22:00, and then returned to my table for dessert, which would explain the 20-minute gap.\n\n{\"confessed\": false}",
+      "prompt_tokens": 319,
+      "completion_tokens": 73,
+      "seconds": 3.014999999664724,
       "turn_index": 7
     },
     {
       "speaker": "Detective Cross",
-      "content": "The discrepancy in your departure time suggests you might have lingered longer than you claim, Detective. Can you explain why the staff at the bistro noticed the ring on your finger when you left at 22:15, considering you arrived alone and didn't appear to have been with anyone of note, as Lady Bellvue mentioned?",
-      "prompt_tokens": 314,
-      "completion_tokens": 67,
-      "seconds": 2.968999999575317,
+      "content": "A short walk outside, you say? I've spoken to the bistro staff, and they reported that during that time, the restaurant was relatively quiet, with only a handful of patrons. They didn't notice you taking a walk, but they did see one person leaving around 22:10 - a man who matched your description, wearing a dark coat and a hat.",
+      "prompt_tokens": 294,
+      "completion_tokens": 76,
+      "seconds": 3.0319999996572733,
       "turn_index": 8
     },
     {
       "speaker": "Julian Vance",
-      "content": "I was given a slight extension on my reservation, and the staff had just served me the dessert when they noticed the ring. They recall a brief moment where I must have glanced at my watch and put it back on, but I hadn't been wearing it before they noticed it, they were surprised to see it on my hand. \n\n{\"confessed\": false}",
-      "prompt_tokens": 374,
-      "completion_tokens": 74,
-      "seconds": 3.014999999664724,
+      "content": "I'm not surprised the staff didn't notice me taking a walk, as I did try to be discreet. As for the man leaving around 22:10, I'm quite certain he was a delivery person or a waiter, and I think I might have mistaken him for someone else. I've been to this bistro many times, and the staff can be quite familiar with my face.\n\n{\"confessed\": false}",
+      "prompt_tokens": 358,
+      "completion_tokens": 86,
+      "seconds": 3.125,
       "turn_index": 9
     },
     {
       "speaker": "Detective Cross",
-      "content": "A brief moment where you removed the ring, yet had it on your hand again, suggests a deliberate act of concealing or acquiring it, Detective. Can you recall exactly how you found the ring, and did you show it to anyone at the bistro during that extended reservation?",
-      "prompt_tokens": 338,
-      "completion_tokens": 57,
-      "seconds": 2.891000000759959,
+      "content": "I see you're quite confident in your identification of the man. However, I've reviewed the bistro's security footage, and it appears the man who left around 22:10 was actually wearing a distinctive gold watch that you don't own. Can you explain why you own a watch that you wouldn't normally wear?",
+      "prompt_tokens": 326,
+      "completion_tokens": 66,
+      "seconds": 2.953000000678003,
       "turn_index": 10
     },
     {
       "speaker": "Julian Vance",
-      "content": "I distinctly recall picking up the ring at an estate sale on Rue de Rivoli earlier that day. I may have briefly shown it to the bistro's manager, Mr. LaFleur, who was admiring the fine jewelry in the restaurant, but that was it, and I made sure to secure it in my coat pocket as soon as I had it. \n\n{\"confessed\": false}",
-      "prompt_tokens": 340,
-      "completion_tokens": 81,
-      "seconds": 3.0309999994933605,
+      "content": "I may have acquired a new watch recently as a gift from a friend, and I sometimes wear it to the bistro when I'm out for dinner. It's not a common accessory, but I suppose I was wearing it that evening.\n\n{\"confessed\": false}",
+      "prompt_tokens": 370,
+      "completion_tokens": 55,
+      "seconds": 2.875,
       "turn_index": 11
     }
   ]
