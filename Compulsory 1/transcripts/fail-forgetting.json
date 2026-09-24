@@ -1,0 +1,133 @@
+{
+  "meta": {
+    "topic": "Interrogation regarding the theft of the 'Star of Midnight' diamond.",
+    "config": "configs/fail-forgetting.yaml"
+  },
+  "agents": [
+    {
+      "name": "Detective Cross",
+      "model": "llama3.2:3b",
+      "temperature": 0.7
+    },
+    {
+      "name": "Julian Vance",
+      "model": "llama3.2:3b",
+      "temperature": 0.7
+    }
+  ],
+  "budget": {
+    "stop_reason": "max_tokens",
+    "turns": 12,
+    "tokens": 4136,
+    "seconds": 36.625,
+    "limits": {
+      "max_turns": 30,
+      "max_tokens": 4000,
+      "max_seconds": 120
+    }
+  },
+  "totals": {
+    "turns": 12,
+    "prompt_tokens": 3352,
+    "completion_tokens": 784,
+    "seconds": 36.625
+  },
+  "messages": [
+    {
+      "speaker": "Detective Cross",
+      "content": "Julian Vance, I've reviewed your alibi for the time of the theft - a dinner party at a friend's residence, supposedly from 18:00 to 22:00. Can you confirm that you left the party at 21:30 and walked home, as you claimed?",
+      "prompt_tokens": 88,
+      "completion_tokens": 60,
+      "seconds": 4.686999999918044,
+      "turn_index": 0
+    },
+    {
+      "speaker": "Julian Vance",
+      "content": "I recall the evening quite clearly, and I left my friend's residence around 21:45 to take a short walk, which should have been long enough to cover the distance to the Grand Bistro. I then arrived around 21:50 and had dinner at 21:55, as I had reservations.\n\n{\"confessed\": false}",
+      "prompt_tokens": 194,
+      "completion_tokens": 70,
+      "seconds": 2.7349999994039536,
+      "turn_index": 1
+    },
+    {
+      "speaker": "Detective Cross",
+      "content": "Your walk should have taken approximately 15 minutes, yet you claim to have arrived at the Grand Bistro around 21:50. Did you actually stop for a drink or conversation at the bistro at 21:50, or did you simply walk past it?",
+      "prompt_tokens": 217,
+      "completion_tokens": 55,
+      "seconds": 2.6400000005960464,
+      "turn_index": 2
+    },
+    {
+      "speaker": "Julian Vance",
+      "content": "I may have been a bit rushed, but I did indeed stop for a drink at the bistro around 21:50, and I recall having a brief conversation with the bartender. I recall the conversation quite vividly, as it was with a friend of mine who was also a patron.\n\n{\"confessed\": false}",
+      "prompt_tokens": 327,
+      "completion_tokens": 66,
+      "seconds": 2.9380000000819564,
+      "turn_index": 3
+    },
+    {
+      "speaker": "Detective Cross",
+      "content": "Your friend, you say? Yet, when I spoke with your acquaintances, they reported that you were alone during that time, and none of them saw you with a friend at the bistro. Can you explain this discrepancy?",
+      "prompt_tokens": 282,
+      "completion_tokens": 47,
+      "seconds": 2.75,
+      "turn_index": 4
+    },
+    {
+      "speaker": "Julian Vance",
+      "content": "I must have misspoken earlier. I was indeed alone at the bistro, and I must have gotten carried away with the conversation. I don't recall having a conversation with a friend, but I do remember enjoying a fine glass of wine and savoring the meal.\n\n{\"confessed\": false}",
+      "prompt_tokens": 310,
+      "completion_tokens": 63,
+      "seconds": 2.9369999999180436,
+      "turn_index": 5
+    },
+    {
+      "speaker": "Detective Cross",
+      "content": "A fine glass of wine and a meal, you say? I've reviewed the bistro's security footage, and it shows you arriving at 21:50, but leaving around 22:20. Can you account for the two-and-a-half-hour gap during which time you claim to have been alone and enjoying your meal?",
+      "prompt_tokens": 267,
+      "completion_tokens": 67,
+      "seconds": 2.9380000000819564,
+      "turn_index": 6
+    },
+    {
+      "speaker": "Julian Vance",
+      "content": "I must have lost track of time, it's not uncommon for me to get engrossed in a good book or a fascinating conversation. I'm pretty sure I took a short walk outside to clear my head around 22:00, and then returned to my table for dessert, which would explain the 20-minute gap.\n\n{\"confessed\": false}",
+      "prompt_tokens": 319,
+      "completion_tokens": 73,
+      "seconds": 3.014999999664724,
+      "turn_index": 7
+    },
+    {
+      "speaker": "Detective Cross",
+      "content": "A short walk outside, you say? I've spoken to the bistro staff, and they reported that during that time, the restaurant was relatively quiet, with only a handful of patrons. They didn't notice you taking a walk, but they did see one person leaving around 22:10 - a man who matched your description, wearing a dark coat and a hat.",
+      "prompt_tokens": 294,
+      "completion_tokens": 76,
+      "seconds": 3.0319999996572733,
+      "turn_index": 8
+    },
+    {
+      "speaker": "Julian Vance",
+      "content": "I'm not surprised the staff didn't notice me taking a walk, as I did try to be discreet. As for the man leaving around 22:10, I'm quite certain he was a delivery person or a waiter, and I think I might have mistaken him for someone else. I've been to this bistro many times, and the staff can be quite familiar with my face.\n\n{\"confessed\": false}",
+      "prompt_tokens": 358,
+      "completion_tokens": 86,
+      "seconds": 3.125,
+      "turn_index": 9
+    },
+    {
+      "speaker": "Detective Cross",
+      "content": "I see you're quite confident in your identification of the man. However, I've reviewed the bistro's security footage, and it appears the man who left around 22:10 was actually wearing a distinctive gold watch that you don't own. Can you explain why you own a watch that you wouldn't normally wear?",
+      "prompt_tokens": 326,
+      "completion_tokens": 66,
+      "seconds": 2.953000000678003,
+      "turn_index": 10
+    },
+    {
+      "speaker": "Julian Vance",
+      "content": "I may have acquired a new watch recently as a gift from a friend, and I sometimes wear it to the bistro when I'm out for dinner. It's not a common accessory, but I suppose I was wearing it that evening.\n\n{\"confessed\": false}",
+      "prompt_tokens": 370,
+      "completion_tokens": 55,
+      "seconds": 2.875,
+      "turn_index": 11
+    }
+  ]
+}

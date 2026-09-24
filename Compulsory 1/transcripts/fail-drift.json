@@ -1,0 +1,101 @@
+{
+  "meta": {
+    "topic": "Interrogation regarding the theft of the 'Star of Midnight' diamond.",
+    "config": "configs/fail-drift.yaml"
+  },
+  "agents": [
+    {
+      "name": "Detective Cross",
+      "model": "llama3.2:3b",
+      "temperature": 1.5
+    },
+    {
+      "name": "Julian Vance",
+      "model": "llama3.2:3b",
+      "temperature": 1.5
+    }
+  ],
+  "budget": {
+    "stop_reason": "max_turns",
+    "turns": 8,
+    "tokens": 3308,
+    "seconds": 23.828,
+    "limits": {
+      "max_turns": 8,
+      "max_tokens": 4000,
+      "max_seconds": 120
+    }
+  },
+  "totals": {
+    "turns": 8,
+    "prompt_tokens": 2734,
+    "completion_tokens": 574,
+    "seconds": 23.828
+  },
+  "messages": [
+    {
+      "speaker": "Detective Cross",
+      "content": "Julian Vance, we have eyewitness accounts placing you near the Grand Gallery around 20:45, roughly an hour before the 'Star of Midnight' went missing. Can you account for your presence during that time?",
+      "prompt_tokens": 88,
+      "completion_tokens": 44,
+      "seconds": 2.75,
+      "turn_index": 0
+    },
+    {
+      "speaker": "Julian Vance",
+      "content": "I can certainly clarify my whereabouts around that time. I was attending a conference at the Grand Gallery, actually presenting a paper on gemology, and I left the venue around 21:15. I'm not sure where the eyewitness accounts got the time wrong, but I can assure you I was on the other side of the city by then. \n\n{\"confessed\": false}",
+      "prompt_tokens": 178,
+      "completion_tokens": 77,
+      "seconds": 3.0470000002533197,
+      "turn_index": 1
+    },
+    {
+      "speaker": "Detective Cross",
+      "content": "A conference, you say? I've checked the guest list and schedule for that evening, and I couldn't find any record of you presenting a paper on gemology around 21:00. Do you have a copy of your presentation notes or a receipt to prove your attendance?",
+      "prompt_tokens": 208,
+      "completion_tokens": 57,
+      "seconds": 2.8119999999180436,
+      "turn_index": 2
+    },
+    {
+      "speaker": "Julian Vance",
+      "content": "I must have misremembered the details of my presentation. I did attend a conference, but I don't have any concrete evidence of my attendance or a presentation schedule to back it up. I've worked on a multitude of projects and events over the years, and it's possible my recollection is faulty.\n\n{\"confessed\": false}",
+      "prompt_tokens": 320,
+      "completion_tokens": 69,
+      "seconds": 2.906000000424683,
+      "turn_index": 3
+    },
+    {
+      "speaker": "Detective Cross",
+      "content": "I see. So, your recollection of your presence at the conference around 21:15 is also based on faulty memory. That raises a question about your trustworthiness. Can you provide me with a list of individuals who can vouch for your alibi during that time, such as colleagues or acquaintances who attended the conference with you?",
+      "prompt_tokens": 342,
+      "completion_tokens": 71,
+      "seconds": 2.9529999997466803,
+      "turn_index": 4
+    },
+    {
+      "speaker": "Julian Vance",
+      "content": "I did attend the conference with a few colleagues, but I'm not sure if any of them are available to confirm my presence. I'm currently working on some projects, and I'm not at liberty to disclose the identities of my colleagues just yet. However, I'm more than happy to provide contact information, and you can reach out to them to confirm my account.\n\n{\"confessed\": false}",
+      "prompt_tokens": 468,
+      "completion_tokens": 81,
+      "seconds": 3.1409999998286366,
+      "turn_index": 5
+    },
+    {
+      "speaker": "Detective Cross",
+      "content": "I'll keep that in mind, Julian. One more thing: your security personnel told me that you were actually leaving the building around 20:45, citing an early departure from your hotel to catch a flight. Are you trying to cover a different alibi, or do you have an unexplained reason for not recalling your departure from the conference?",
+      "prompt_tokens": 502,
+      "completion_tokens": 71,
+      "seconds": 2.9380000000819564,
+      "turn_index": 6
+    },
+    {
+      "speaker": "Julian Vance",
+      "content": "I see what's happened here. I think there's been a bit of a mix-up with my schedule. I did indeed check out of my hotel around 20:45, but I was planning to leave the conference a bit later than that. I think my security team might have gotten it wrong, or perhaps they were trying to help me out. I'm not trying to cover anything up, it's just a matter of my memory being a bit foggy on the specifics.\n\n{\"confessed\": false}",
+      "prompt_tokens": 628,
+      "completion_tokens": 104,
+      "seconds": 3.281000000424683,
+      "turn_index": 7
+    }
+  ]
+}
