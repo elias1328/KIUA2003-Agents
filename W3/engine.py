@@ -27,27 +27,6 @@ class Entry:
 
 
 def view_for(agent, transcript):
-<<<<<<< HEAD
-    #1. Start with the agents persona instructions
-    messages = [{"role": "system", "content": agent.system_prompt}]
-
-    #2. If nobody has spoken yet, give the first agent a push to start
-    if not transcript:
-        messages.append({"role": "user", "content": "You speak first."})
-        return messages
-
-    #3. Otherwise, convert each message from this agent's point of view
-    for entry in transcript:
-        if entry.speaker == agent.name:
-            role = "assistant" # I said this
-        else:
-            role = "user" # The other agent said this to me
-
-        messages.append({"role": role, "content": entry.content})
-
-    #4. Return the list of message directories
-    return messages
-=======
     # 1. Start with the agent's system prompt
     msgs = [{"role": "system", "content": agent.system_prompt}]
     
@@ -61,7 +40,47 @@ def view_for(agent, transcript):
         msgs.append({"role": role, "content": entry.content})
         
     return msgs
->>>>>>> simen
+
+def truncate_context(messages, max_messages=10):
+    """Keep the system prompt + the most recent (max_messages - 1) messages."""
+    if len(messages) <= max_messages:
+        return messages
+    dropped = len(messages) - max_messages
+    print(f"[context] Truncated {dropped} older message(s); keeping system prompt + last {max_messages - 1}.")
+    return [messages[0]] + messages[-(max_messages - 1):]
+
+def summarise_context(messages, client, model, max_messages=10):
+    if len(messages) <= max_messages:
+        return messages
+        
+    # Split: keep system prompt at [0], isolate the old middle, keep the recent end
+    system = messages[0]
+    old = messages[1:-(max_messages // 2)]
+    recent = messages[-(max_messages // 2):]
+
+    # Ask the model to compress the old messages with strict instructions
+    summary_prompt = [
+        {
+            "role": "system", 
+            "content": (
+                "Summarise this interrogation in 3-4 sentences. "
+                "You MUST preserve all exact timestamps, specific locations, alibi claims, and contradictions. "
+                "Drop conversational filler, but keep the concrete evidence."
+            )
+        },
+        {
+            "role": "user", 
+            "content": "\n".join(f"{m['role']}: {m['content']}" for m in old)
+        }
+    ]
+    
+    # temperature=0 ensures the summary remains factual and deterministic
+    reply = client.chat(model, summary_prompt, temperature=0)
+    print(f"[context] Summarised {len(old)} older message(s) into a persistent memory block.")
+
+    # Rebuild: system + summary-as-user-message + recent verbatim messages
+    summary_msg = {"role": "user", "content": f"[Summary of earlier conversation: {reply.text}]"}
+    return [system, summary_msg] + recent
 
 
 class DialogueEngine:
@@ -82,27 +101,12 @@ class DialogueEngine:
         self.budget = budget
         self.transcript = []  # list[Entry]
         self.goal_reached = goal_reached or (lambda t: False)
-        self.manage_context = manage_context or (lambda messages: messages)
+        self.manage_context = manage_context or summarise_context  # default WEEK 3 hook to summarise context
 
     def next_speaker(self):
         return self.agents[len(self.transcript) % len(self.agents)]
 
     def run(self):
-<<<<<<< HEAD
-        # 1. Keep going until a limit fires (turns, tokens, or time)
-        while not self.budget.exhausted():
-
-            # 2. Pick who speaks next
-            speaker = self.next_speaker()
-
-            # 3. Create the perspective-correct message list using view_for
-            messages = self.manage_context(view_for(speaker, self.transcript))
-
-            # 4. Call the LLM to get the response
-            reply = self.client.chat(speaker.model, messages, speaker.temperature)
-
-            # 5. Wrap the reply and its metrics (tokens, time) into an Entry
-=======
         while not self.budget.exhausted():
             speaker = self.next_speaker()
             messages = self.manage_context(view_for(speaker, self.transcript))
@@ -111,30 +115,12 @@ class DialogueEngine:
             reply = self.client.chat(speaker.model, messages, speaker.temperature)
             
             # Create the transcript entry
->>>>>>> simen
             entry = Entry(
                 speaker=speaker.name,
                 content=reply.text,
                 prompt_tokens=reply.prompt_tokens,
                 completion_tokens=reply.completion_tokens,
                 seconds=reply.seconds,
-<<<<<<< HEAD
-                turn_index=len(self.transcript),
-            )
-            self.transcript.append(entry)
-
-            # 6. Inform the budget of turns and tokens used
-            self.budget.record(turns=1, tokens=reply.tokens)
-
-            # 7. Check if domain goal is met (e.g price agreed)
-            if self.goal_reached(self.transcript):
-                self.budget.stop("goal_reached")
-
-        # When loop finishes, return the full conversation history
-        return self.transcript
-
-
-=======
                 turn_index=len(self.transcript)
             )
             self.transcript.append(entry)
@@ -147,7 +133,6 @@ class DialogueEngine:
                 self.budget.stop("goal_reached")
                 
         return self.transcript
->>>>>>> simen
 
     # === bookkeeping below is DONE ===
 
@@ -173,5 +158,3 @@ class DialogueEngine:
         with open(path, "w") as f:
             json.dump(record, f, indent=2)
         return path
-
-
