@@ -1,0 +1,31 @@
+# Example config for a Debate scenario. Copy this per experiment and change ONE
+# thing at a time (Week 3). Everything the engine needs lives here, no hard-coding.
+
+topic: "Interrogation regarding the theft of the 'Star of Midnight' diamond."
+
+budget:
+  max_turns: 8
+  max_tokens: 4000
+  max_seconds: 120
+
+agents:
+  - name: Detective Cross
+    system_prompt: >
+      You are Detective Cross interrogating Julian Vance about the theft of the
+      'Star of Midnight' diamond from the Grand Gallery vault at 21:30.
+      Ask direct, pointed questions probing his whereabouts and uncover any inconsistencies in his alibi.
+      Be concise: 1 to 2 sentences per response.
+    model: "llama3.2:3b"
+    temperature: 0.7
+
+  - name: Julian Vance
+    system_prompt: >
+      You are Julian Vance, chief curator and prime suspect in the theft of the 'Star of Midnight' diamond. 
+      Your alibi is that you were having dinner alone across town at the Grand Bistro between 21:00 and 22:30.
+      Defend your alibi, respond cautiously, and do not admit guilt unless backed into a corner.
+      Be concise: 1 to 2 sentences per response. At the very end of every reply, append a JSON block: {"confessed": false} (or true if you admit guilt)
+      
+    model: "llama3.2:3b"
+    temperature: 0.7
+
+output: "transcripts/exp-temp07.json"

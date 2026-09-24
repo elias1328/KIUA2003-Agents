@@ -1,0 +1,101 @@
+{
+  "meta": {
+    "topic": "Interrogation regarding the theft of the 'Star of Midnight' diamond.",
+    "config": "configs/exp-temp10.yaml"
+  },
+  "agents": [
+    {
+      "name": "Detective Cross",
+      "model": "llama3.2:3b",
+      "temperature": 1.0
+    },
+    {
+      "name": "Julian Vance",
+      "model": "llama3.2:3b",
+      "temperature": 1.0
+    }
+  ],
+  "budget": {
+    "stop_reason": "max_turns",
+    "turns": 8,
+    "tokens": 3547,
+    "seconds": 24.266,
+    "limits": {
+      "max_turns": 8,
+      "max_tokens": 4000,
+      "max_seconds": 120
+    }
+  },
+  "totals": {
+    "turns": 8,
+    "prompt_tokens": 2940,
+    "completion_tokens": 607,
+    "seconds": 24.266
+  },
+  "messages": [
+    {
+      "speaker": "Detective Cross",
+      "content": "Let's get down to business, Mr. Vance. You claim to have left the museum at 21:00 to attend a charity gala, but I've received conflicting reports about the location of this supposed event - care to clarify where exactly you attended this gathering?",
+      "prompt_tokens": 88,
+      "completion_tokens": 54,
+      "seconds": 2.968999999575317,
+      "turn_index": 0
+    },
+    {
+      "speaker": "Julian Vance",
+      "content": "I did attend a charity gala, but I'm afraid the details are a bit murky. The invitation I received listed the event as a private reception at the Grand Bistro, but I've since spoken with the gala organizers, and they seem to have forgotten about the event altogether. I'm not sure what's more frustrating, the mix-up or the fact that I was supposed to be giving a speech at the gala. \n\n{\"confessed\": false}",
+      "prompt_tokens": 188,
+      "completion_tokens": 92,
+      "seconds": 3.125,
+      "turn_index": 1
+    },
+    {
+      "speaker": "Detective Cross",
+      "content": "Save the frustration for later, Mr. Vance - I need to focus on your whereabouts between 20:45 and 21:30. Can you confirm the identity of anyone you saw at the Grand Bistro around that time, or provide a name for someone who vouched for your presence?",
+      "prompt_tokens": 233,
+      "completion_tokens": 60,
+      "seconds": 2.8590000001713634,
+      "turn_index": 2
+    },
+    {
+      "speaker": "Julian Vance",
+      "content": "Yes, I recall meeting a colleague, Dr. Maria Rodriguez, who was also attending the gala. She agreed to vouch for my presence, and I have her contact information, which should confirm my alibi. She's available to speak with you, if you'd like to verify my account.\n\n{\"confessed\": false}",
+      "prompt_tokens": 348,
+      "completion_tokens": 67,
+      "seconds": 2.875,
+      "turn_index": 3
+    },
+    {
+      "speaker": "Detective Cross",
+      "content": "Dr. Rodriguez's testimony will certainly add credibility to your account, but I also need to confirm that she was not the only one you interacted with at the Grand Bistro. You mentioned a mix-up with the gala event - can you recall any other guests, staff, or individuals you encountered who might have been suspiciously quiet or out of place at that time?",
+      "prompt_tokens": 368,
+      "completion_tokens": 75,
+      "seconds": 3.0470000002533197,
+      "turn_index": 4
+    },
+    {
+      "speaker": "Julian Vance",
+      "content": "As a matter of fact, I did run into our curator, Mr. Edward Lee, around 20:45, and we exchanged a few words about the exhibit we were both preparing for the gala. He was indeed quiet and reserved that evening, but I attributed that to his being a bit preoccupied with the display. I don't recall him being suspiciously quiet, per se, but it's possible he was just having a quiet night.\n\n{\"confessed\": false}",
+      "prompt_tokens": 498,
+      "completion_tokens": 97,
+      "seconds": 3.2029999997466803,
+      "turn_index": 5
+    },
+    {
+      "speaker": "Detective Cross",
+      "content": "A possible innocent explanation, Mr. Vance - but I'll need to press you further on Mr. Lee's behavior. You mentioned that he was \"preoccupied\" with the display, but didn't you also receive an anonymous tip that morning, warning you about potential security breaches and suggesting you review the exhibit's display case?",
+      "prompt_tokens": 548,
+      "completion_tokens": 66,
+      "seconds": 2.8909999998286366,
+      "turn_index": 6
+    },
+    {
+      "speaker": "Julian Vance",
+      "content": "Yes, I did receive an anonymous tip that morning, and I did take the suggestion to review the exhibit's display case. I remember speaking with Mr. Lee about it, and he seemed concerned about the potential risks, but I'm not aware of him being... unusually anxious or evasive about it. He's a bit of a perfectionist, so I wouldn't have thought he'd be worried about something as mundane as a display case.\n\n{\"confessed\": false}",
+      "prompt_tokens": 669,
+      "completion_tokens": 96,
+      "seconds": 3.2970000002533197,
+      "turn_index": 7
+    }
+  ]
+}
