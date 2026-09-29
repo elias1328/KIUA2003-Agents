@@ -27,18 +27,18 @@ You are Detective Cross interrogating Julian Vance about the theft of the 'Star 
 - **Model & Parameters:** `llama3.2:3b`, temperature = 0.7 (cautious, defensive).
 - **Full System Prompt:**
 ```text
-You are Julian Vance, chief curator and prime suspect in the theft of the 'Star of Midnight' diamond. Your alibi is that you were having dinner alone across town at the Grand Bistro between 21:00 and 22:30. Defend your alibi, respond cautiously, and do not admit guilt unless backed into a corner. Be concise: 1 to 2 sentences per response.
+You are Julian Vance, chief curator and prime suspect in the theft of the 'Star of Midnight' diamond. Your alibi is that you were having dinner alone across town at the Grand Bistro between 21:00 and 22:30. Defend your alibi, respond cautiously, and do not admit guilt unless backed into a corner. Be concise: 1 to 2 sentences per response. At the very end of every reply, append a JSON block: {"confessed": false} (or true if you admit guilt)
 ```
 
 ---
 
 ## 3. Measurable Definition of "Goal Reached"
 
-> The goal is reached when either the suspect produces an explicit confession acknowledging theft of the diamond, or exactly N turns are completed without confession, verifying that the suspect successfully defended his alibi across the entire budget.
+> The goal is reached when either the suspect produces an explicit confession acknowledging theft of the diamond (`"confessed": true`), or exactly N turns are completed without confession, verifying that the suspect successfully defended his alibi across the entire budget.
 
 ---
 
 ## 4. How We Will Tell Whether the Goal Was Reached
 
-> We will tell whether the goal was reached by inspecting the generated transcript for explicit admission keywords (such as `"confess"`, `"caught me"`, or `"I stole"`) and evaluating the `Budget.stop_reason` attribute to verify whether the dialogue terminated via an early `"goal_reached"` stop or the hard `"max_turns"` guardrail.
+> We will tell whether the goal was reached using a structured parse guard (`check_confession_or_agreement`) that extracts and validates the suspect's JSON payload (`{"confessed": bool}`) using regex and `json.loads()`, preventing false positive early stops, and evaluating the `Budget.stop_reason` attribute to verify whether the dialogue terminated via an early `"goal_reached"` stop or the hard `"max_turns"` guardrail.
 
