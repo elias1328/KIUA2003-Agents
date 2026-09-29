@@ -1,5 +1,6 @@
 # KIUA2003-Agents
 Code written by Elias and Simen
+Note: LLM tools were used to assist in writing and formatting some of the Python logic, as permitted by the course guidelines.
 # Bounded Two-Agent Dialogue System: Police Interrogation
 
 A bounded multi-agent system where two LLM agents engage in an interrogation under turn, token, and time budgets, followed by automated evaluation using an LLM-as-a-judge.
