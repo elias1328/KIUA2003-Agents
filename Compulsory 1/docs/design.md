@@ -1,4 +1,4 @@
-# 1-Page Design Document: Multi-Agent Detective Interrogation
+# 1-Page Design Document: Multi-Agent Detective Interrogation (From week 1)
 
 ## 1. Chosen Scenario and Why
 
