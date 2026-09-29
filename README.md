@@ -39,7 +39,7 @@ A bounded multi-agent system where two LLM agents engage in an interrogation und
 
 3. **To test offline without Ollama running, append --mock:**
     ```bash
-    python run.py --config configs/interrogation.yaml --mock
+    python run.py --config configs/interrogation.yaml --judge --mock
     ```
 
 ## Repository Structure
