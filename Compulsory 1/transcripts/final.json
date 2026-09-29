@@ -18,8 +18,8 @@
   "budget": {
     "stop_reason": "max_turns",
     "turns": 8,
-    "tokens": 3678,
-    "seconds": 61.135,
+    "tokens": 2862,
+    "seconds": 51.292,
     "limits": {
       "max_turns": 8,
       "max_tokens": 4000,
@@ -28,73 +28,73 @@
   },
   "totals": {
     "turns": 8,
-    "prompt_tokens": 3087,
-    "completion_tokens": 591,
-    "seconds": 61.133
+    "prompt_tokens": 2427,
+    "completion_tokens": 435,
+    "seconds": 51.29
   },
   "messages": [
     {
       "speaker": "Detective Cross",
-      "content": "Julian Vance, I've reviewed your alibi for the time of the theft. You claim to have been at a dinner party at your friend's estate, but I've spoken to the host, and he says you left around 20:00 to attend to a personal matter. Can you explain why your phone records show multiple calls to an unknown number from your location during the time you claim to be at the dinner party?",
+      "content": "Julian Vance, I've received reports that you were at the exclusive gentleman's club, The Red Diamond, around 21:00 hours. Can you confirm or deny your presence there?",
       "prompt_tokens": 88,
-      "completion_tokens": 87,
-      "seconds": 12.815117635000206,
+      "completion_tokens": 39,
+      "seconds": 11.680810126003053,
       "turn_index": 0
     },
     {
       "speaker": "Julian Vance",
-      "content": "I'm afraid there's been a miscommunication. I recall my friend's estate, but I distinctly remember leaving around 20:00 to take care of a personal matter, not to attend to one. I'm not sure what the host meant by saying I left early, and I can only assume it was a misunderstanding.\n\n{\"confessed\": false}",
-      "prompt_tokens": 221,
-      "completion_tokens": 72,
-      "seconds": 8.404077330000291,
+      "content": "I can confirm that I was indeed at The Red Diamond, but I was there with a business associate and we were meeting with a potential investor for a private art exhibition. I'm afraid I'm not at liberty to disclose further details due to confidentiality agreements.\n\n{\"confessed\": false}",
+      "prompt_tokens": 173,
+      "completion_tokens": 58,
+      "seconds": 6.97490439199828,
       "turn_index": 1
     },
     {
       "speaker": "Detective Cross",
-      "content": "I've spoken to the host again, and he's adamant that you left around 20:00, Julian. Additionally, I've obtained a security camera image from your estate's property that shows you arriving at 21:20, which is 50 minutes after the reported theft time. Can you explain why your car is parked in a different location than where it's normally kept?",
-      "prompt_tokens": 246,
-      "completion_tokens": 78,
-      "seconds": 8.26816085199971,
+      "content": "I see. So, you were meeting with a potential investor at 21:00, which would have taken around 1 hour. Can you tell me exactly what time you left The Red Diamond, and did you return to your residence or anywhere else?",
+      "prompt_tokens": 184,
+      "completion_tokens": 52,
+      "seconds": 5.648588132000441,
       "turn_index": 2
     },
     {
       "speaker": "Julian Vance",
-      "content": "I'm not sure what to make of the security camera image, but I do recall needing to move my car to a different location that night due to some repairs being done on my vehicle. It's possible that I didn't bother to update my records on the new location.\n\n{\"confessed\": false}",
-      "prompt_tokens": 379,
-      "completion_tokens": 62,
-      "seconds": 5.285183643001801,
+      "content": "I left The Red Diamond around 22:00 hours, and after the meeting, I did stop by a acquaintance's residence in the area to collect a package, but I did not stay long. The package was from the Grand Bistro, where I had made reservations for dinner.\n\n{\"confessed\": false}",
+      "prompt_tokens": 291,
+      "completion_tokens": 64,
+      "seconds": 5.945216939999227,
       "turn_index": 3
     },
     {
       "speaker": "Detective Cross",
-      "content": "Repairs, you say? I've spoken to the repair shop, and they tell me that they didn't receive any work orders for your vehicle on the night of the theft. Can you provide me with the name of the repair shop and the date of the repairs, and also explain why your car's GPS system shows a 30-minute detour through the city center around the time of the theft?",
-      "prompt_tokens": 394,
-      "completion_tokens": 82,
-      "seconds": 6.962135685997055,
+      "content": "I've spoken to the staff at the Grand Bistro, and they claim you arrived around 22:15, which would have been after the vault was compromised. Can you explain why your alibi for the 22:00 hour discrepancy?",
+      "prompt_tokens": 308,
+      "completion_tokens": 50,
+      "seconds": 4.709045865001826,
       "turn_index": 4
     },
     {
       "speaker": "Julian Vance",
-      "content": "I seem to have misspoken about the repairs. To be honest, I was driving to and from the dinner party, and I must have gotten turned around at some point. I'm not sure what the GPS system says, but I can try to explain it away as a navigation error.\n\n{\"confessed\": false}",
-      "prompt_tokens": 531,
-      "completion_tokens": 66,
-      "seconds": 6.102339165001467,
+      "content": "It seems I may have lost track of time momentarily, and I arrived at the Grand Bistro around 22:15, as you've confirmed. I can only assume the staff's records are accurate, and I'm not sure what caused the 15-minute delay in my arrival.\n\n{\"confessed\": false}",
+      "prompt_tokens": 413,
+      "completion_tokens": 64,
+      "seconds": 5.985085576001438,
       "turn_index": 5
     },
     {
       "speaker": "Detective Cross",
-      "content": "A navigation error, you say? I've reviewed the GPS system's data, and it shows a clear pattern of movement that suggests you were driving in a deliberate attempt to avoid detection. Can you explain why your car's speedometer shows a sudden decrease in speed around 21:30, which is the exact time the 'Star of Midnight' was stolen?",
-      "prompt_tokens": 550,
-      "completion_tokens": 73,
-      "seconds": 6.485026889000437,
+      "content": "I see. So, you're saying you didn't intentionally try to mislead me. However, I've also received a report that the package you collected from the Grand Bistro was a small, unmarked box. Can you tell me what was inside that box?",
+      "prompt_tokens": 430,
+      "completion_tokens": 55,
+      "seconds": 5.308667617999163,
       "turn_index": 6
     },
     {
       "speaker": "Julian Vance",
-      "content": "(pausing, choosing words carefully) I...I think it's possible that I was driving cautiously to avoid any...unusual situations. The 'Star of Midnight' is a highly valuable diamond, and I can imagine that someone might be trying to avoid attention. Perhaps I was simply exercising caution to ensure my own safety.\n\n{\"confessed\": false}",
-      "prompt_tokens": 678,
-      "completion_tokens": 71,
-      "seconds": 6.810671293998894,
+      "content": "The package was just a small care package that my acquaintance had sent over, containing some... personal items. I don't recall what was inside, to be honest, and I'm not sure why it's relevant to the investigation.\n\n{\"confessed\": false}",
+      "prompt_tokens": 540,
+      "completion_tokens": 53,
+      "seconds": 5.037434147001477,
       "turn_index": 7
     }
   ]
