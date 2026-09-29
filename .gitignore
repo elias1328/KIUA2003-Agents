@@ -1,2 +1,9 @@
 .vscode
-.tex
+*.tex
+*.pdf
+*.aux
+*.log
+*.out
+*.synctex.gz
+*.fls
+*.fdb_latexmk
